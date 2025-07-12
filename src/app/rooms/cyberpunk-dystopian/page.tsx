@@ -96,10 +96,10 @@ export default function CyberpunkDystopianPage() {
       <div className="absolute bottom-60 left-40 w-5 h-5 bg-cyan-300 rounded-full animate-bounce opacity-25" />
 
       {/* Back Navigation */}
-      <div className="absolute top-8 left-8 z-10">
+      <div className="absolute top-8 left-8 z-[60]">
         <Link
           href="/rooms"
-          className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 bg-black/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/10 hover:border-white/20"
+          className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 hover:bg-black/60 shadow-lg"
         >
           <FaArrowLeft />
           <span>Back to Rooms</span>

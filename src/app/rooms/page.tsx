@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FaAtom, FaRocket, FaMicrochip, FaPlay, FaArrowRight, FaLightbulb } from 'react-icons/fa';
 
 const rooms = [
@@ -94,6 +95,7 @@ const itemVariants = {
 export default function RoomsPage() {
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [hoveredRoom, setHoveredRoom] = useState<string | null>(null);
+  const router = useRouter();
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -157,7 +159,7 @@ export default function RoomsPage() {
                 whileHover={{ scale: 1.02, y: -8 }}
                 onHoverStart={() => setHoveredRoom(room.id)}
                 onHoverEnd={() => setHoveredRoom(null)}
-                onClick={() => setSelectedRoom(room.id)}
+                onClick={() => router.push(`/rooms/${room.id}`)}
                 className={`relative group cursor-pointer rounded-2xl overflow-hidden ${room.bgColor} border border-gray-800/50 hover:border-${room.color}-500/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-${room.color}-500/20`}
               >
                 {/* Background Image */}
@@ -211,18 +213,22 @@ export default function RoomsPage() {
                       <p className="text-2xl font-bold text-white">{room.price}</p>
                       <p className="text-gray-400 text-sm">{room.duration}</p>
                     </div>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`px-6 py-3 bg-gradient-to-r ${room.gradient} text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-${room.color}-500/25 transition-all duration-300`}
-                    >
-                      Experience Reality
-                    </motion.button>
+                    <Link href={`/rooms/${room.id}`}>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => e.stopPropagation()}
+                        className={`px-6 py-3 bg-gradient-to-r ${room.gradient} text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-${room.color}-500/25 transition-all duration-300`}
+                      >
+                        Experience Reality
+                      </motion.button>
+                    </Link>
                   </div>
 
                   {/* Call to Action */}
                   <Link
                     href={`/rooms/${room.id}`}
+                    onClick={(e) => e.stopPropagation()}
                     className="group/link flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors duration-300"
                   >
                     <span className="text-sm">Explore This Universe</span>

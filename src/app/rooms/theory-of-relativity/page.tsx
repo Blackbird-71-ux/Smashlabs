@@ -75,10 +75,10 @@ export default function TheoryOfRelativityPage() {
       <div className="absolute bottom-40 left-20 w-3 h-3 bg-indigo-400 rounded-full animate-ping opacity-50" />
 
       {/* Back Navigation */}
-      <div className="absolute top-8 left-8 z-10">
+      <div className="absolute top-8 left-8 z-[60]">
         <Link
           href="/rooms"
-          className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 bg-black/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/10 hover:border-white/20"
+          className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 hover:bg-black/60 shadow-lg"
         >
           <FaArrowLeft />
           <span>Back to Rooms</span>
