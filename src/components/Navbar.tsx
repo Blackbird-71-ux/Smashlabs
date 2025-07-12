@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FaBars, FaTimes } from 'react-icons/fa'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { trackButtonClick } from '@/lib/analytics'
 
 const Navbar = () => {
@@ -12,55 +12,86 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Check if we're on the homepage
+  const isHomepage = pathname === '/';
 
   const navLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'testimonials', label: 'Testimonials' },
-    { id: 'booknow', label: 'Book Now' }
+    { id: 'home', label: 'Home', href: '/' },
+    { id: 'experience', label: 'Experience', href: isHomepage ? '#experience' : '/#experience' },
+    { id: 'themed-rooms', label: 'Rooms', href: '/rooms' },
+    { id: 'gallery', label: 'Gallery', href: isHomepage ? '#gallery' : '/#gallery' },
+    { id: 'testimonials', label: 'Testimonials', href: isHomepage ? '#testimonials' : '/#testimonials' },
+    { id: 'booknow', label: 'Book Now', href: '/book' }
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Determine active section based on scroll position
-      const sections = document.querySelectorAll('section[id]');
-      let currentActive = 'home';
-      sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const sectionHeight = section.clientHeight;
-        if (sectionTop <= 100 && (sectionTop + sectionHeight) > 100) { // 100px offset for navbar height
-          currentActive = section.id;
-        }
-      });
-      setActiveSection(currentActive);
+      // Only track active sections on homepage
+      if (isHomepage) {
+        const sections = document.querySelectorAll('section[id]');
+        let currentActive = 'home';
+        sections.forEach(section => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const sectionHeight = section.clientHeight;
+          if (sectionTop <= 100 && (sectionTop + sectionHeight) > 100) {
+            currentActive = section.id;
+          }
+        });
+        setActiveSection(currentActive);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call on mount to set initial active section
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomepage]);
 
-  const scrollToSection = (sectionId: string, e?: React.MouseEvent) => {
+  const handleNavigation = (link: typeof navLinks[0], e?: React.MouseEvent) => {
     e?.preventDefault();
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offsetTop = element.offsetTop - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-      setActiveSection(sectionId);
-      setIsMobileMenuOpen(false);
+    setIsMobileMenuOpen(false);
+
+    if (link.href.startsWith('#')) {
+      // Section-based navigation (only on homepage)
+      const sectionId = link.href.substring(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offsetTop = element.offsetTop - 80;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+        setActiveSection(sectionId);
+      }
+    } else if (link.href.startsWith('/#')) {
+      // Navigation to homepage section from other pages
+      if (isHomepage) {
+        const sectionId = link.href.substring(2);
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offsetTop = element.offsetTop - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+          setActiveSection(sectionId);
+        }
+      } else {
+        router.push(link.href);
+      }
+    } else {
+      // Page-based navigation
+      router.push(link.href);
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, sectionId: string) => {
+  const handleKeyDown = (e: React.KeyboardEvent, link: typeof navLinks[0]) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      scrollToSection(sectionId);
+      handleNavigation(link);
     }
   };
 
@@ -88,8 +119,7 @@ const Navbar = () => {
           <Link 
             href="/" 
             className="flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 rounded-lg p-2" 
-            onClick={(e) => scrollToSection('home', e)} 
-            aria-label="SmashLabs Home - Go to top of page"
+            aria-label="SmashLabs Home - Go to homepage"
           >
             <Image
               src="/logo.png"
@@ -111,12 +141,14 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={(e) => scrollToSection(link.id, e)}
-                onKeyDown={(e) => handleKeyDown(e, link.id)}
+                onClick={(e) => handleNavigation(link, e)}
+                onKeyDown={(e) => handleKeyDown(e, link)}
                 className={`text-sm lg:text-base font-medium transition-colors duration-300 whitespace-nowrap px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 ${
-                  activeSection === link.id ? 'text-white font-semibold bg-red-600/20' : (isScrolled ? 'text-gray-300 hover:text-white hover:bg-gray-700/50' : 'text-gray-300 hover:text-white hover:bg-white/5')
+                  (isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))
+                    ? 'text-white font-semibold bg-red-600/20' 
+                    : (isScrolled ? 'text-gray-300 hover:text-white hover:bg-gray-700/50' : 'text-gray-300 hover:text-white hover:bg-white/5')
                 }`}
-                aria-current={activeSection === link.id ? 'page' : undefined}
+                aria-current={((isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))) ? 'page' : undefined}
                 role="menuitem"
                 tabIndex={0}
               >
@@ -154,12 +186,14 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <button
                   key={link.id}
-                  onClick={(e) => scrollToSection(link.id, e)}
-                  onKeyDown={(e) => handleKeyDown(e, link.id)}
+                  onClick={(e) => handleNavigation(link, e)}
+                  onKeyDown={(e) => handleKeyDown(e, link)}
                   className={`text-left px-4 py-3 rounded-lg font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 ${
-                    activeSection === link.id ? 'text-white font-semibold bg-red-600/20' : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
+                    (isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))
+                      ? 'text-white font-semibold bg-red-600/20' 
+                      : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
                   }`}
-                  aria-current={activeSection === link.id ? 'page' : undefined}
+                  aria-current={((isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))) ? 'page' : undefined}
                   role="menuitem"
                   tabIndex={0}
                 >

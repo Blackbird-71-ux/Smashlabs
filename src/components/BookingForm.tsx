@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { debug, info, warn, error, logApiCall, logUserAction, logValidation } from '@/lib/clientLogger';
 
 interface BookingFormData {
   name: string;
@@ -10,6 +11,7 @@ interface BookingFormData {
   date: string;
   time: string;
   package: string;
+  room: string;
   participants: string;
   specialRequests: string;
 }
@@ -21,6 +23,7 @@ interface BookingFormErrors {
   date?: string;
   time?: string;
   package?: string;
+  room?: string;
   participants?: string;
 }
 
@@ -32,6 +35,7 @@ export default function BookingForm() {
     date: '',
     time: '',
     package: '',
+    room: '',
     participants: '',
     specialRequests: ''
   });
@@ -45,6 +49,12 @@ export default function BookingForm() {
     { value: 'quick', label: 'Quick Smash (30 min) - ₹2,500' },
     { value: 'team', label: 'Team Smash (60 min) - ₹4,500' },
     { value: 'corporate', label: 'Corporate Smash (90 min) - ₹6,500' }
+  ];
+
+  const rooms = [
+    { value: 'theory-of-relativity', label: 'Theory of Relativity - ₹3,500 (45 min)' },
+    { value: 'quantum-theory', label: 'Quantum Theory - ₹4,000 (50 min)' },
+    { value: 'cyberpunk-dystopian', label: 'Cyberpunk Dystopian - ₹4,500 (60 min)' }
   ];
 
   const timeSlots = [
@@ -77,6 +87,7 @@ export default function BookingForm() {
     if (!formData.date) newErrors.date = 'Date is required';
     if (!formData.time) newErrors.time = 'Time is required';
     if (!formData.package) newErrors.package = 'Package is required';
+    if (!formData.room) newErrors.room = 'Room selection is required';
     if (!formData.participants) newErrors.participants = 'Number of participants is required';
     
     setErrors(newErrors);
@@ -86,16 +97,14 @@ export default function BookingForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('=== BOOKING FORM DEBUG ===');
-    console.log('Form data before validation:', formData);
+    logUserAction('Booking form submitted', { formData });
     
     if (!validateForm()) {
-      console.log('❌ Form validation failed');
-      console.log('Validation errors:', errors);
+      logValidation('booking-form', 'Form validation failed', { errors });
       return;
     }
     
-    console.log('✅ Form validation passed');
+    info('Booking form validation passed');
     setIsLoading(true);
     
     try {
@@ -124,24 +133,31 @@ export default function BookingForm() {
       const selectedPackage = packageMapping[formData.package];
       const mappedTime = timeMapping[formData.time];
 
-      console.log('Package mapping result:', selectedPackage);
-      console.log('Time mapping result:', mappedTime);
+      debug('Package and time mapping', { 
+        selectedPackage, 
+        mappedTime,
+        originalPackage: formData.package,
+        originalTime: formData.time
+      });
 
       if (!selectedPackage) {
-        console.error('❌ Invalid package selected:', formData.package);
+        error('Invalid package selected', { package: formData.package });
         alert(`Invalid package selected: ${formData.package}`);
         return;
       }
 
       if (!mappedTime) {
-        console.error('❌ Invalid time selected:', formData.time);
+        error('Invalid time selected', { time: formData.time });
         alert(`Invalid time selected: ${formData.time}`);
         return;
       }
 
       // Convert date to ISO format for backend
       const dateObj = new Date(formData.date + 'T10:00:00.000Z');
-      console.log('Date conversion:', formData.date, '→', dateObj.toISOString());
+      debug('Date conversion', { 
+        originalDate: formData.date, 
+        convertedDate: dateObj.toISOString() 
+      });
 
       const backendData = {
         customerName: formData.name,
@@ -154,24 +170,33 @@ export default function BookingForm() {
         preferredTime: mappedTime,
         duration: selectedPackage.duration,
         participants: parseInt(formData.participants),
+        selectedRoom: formData.room,
         specialRequests: formData.specialRequests || ''
       };
 
-      console.log('📤 Sending booking data to backend:', backendData);
-      console.log('📡 API URL:', 'https://smashlabs-backend-production.up.railway.app/api/bookings');
+      const apiUrl = 'https://smashlabs-backend-production.up.railway.app/api/bookings';
+      const startTime = Date.now();
       
-      const response = await fetch('https://smashlabs-backend-production.up.railway.app/api/bookings', {
+      debug('Sending booking data to backend', { 
+        backendData, 
+        apiUrl 
+      });
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(backendData)
       });
       
-      console.log('📥 Response status:', response.status);
-      console.log('📥 Response ok:', response.ok);
+      const duration = Date.now() - startTime;
+      logApiCall('POST', apiUrl, response.status, duration);
       
       if (response.ok) {
         const successData = await response.json();
-        console.log('✅ Booking successful:', successData);
+        info('Booking successful', { 
+          bookingId: successData.data?.bookingId || 'N/A',
+          customerName: backendData.customerName
+        });
         setShowSmashAnimation(true);
         setTimeout(() => {
           setShowSmashAnimation(false);
@@ -179,9 +204,11 @@ export default function BookingForm() {
         }, 2000);
       } else {
         const errorData = await response.json();
-        console.error('❌ Booking failed - Response data:', errorData);
-        console.error('❌ Response status:', response.status);
-        console.error('❌ Response headers:', Object.fromEntries(response.headers.entries()));
+        error('Booking failed', {
+          responseData: errorData,
+          responseStatus: response.status,
+          responseHeaders: Object.fromEntries(response.headers.entries())
+        });
         
         let errorMessage = 'Please try again.';
         if (errorData.message) {
@@ -192,15 +219,18 @@ export default function BookingForm() {
           errorMessage = errorData.errors.map((err: any) => err.msg || err.message).join(', ');
         }
         
-        console.error('❌ Final error message:', errorMessage);
+        warn('Booking error presented to user', { errorMessage });
         alert(`Booking failed: ${errorMessage}`);
       }
-    } catch (error) {
-      console.error('❌ Network/JavaScript error:', error);
+    } catch (err) {
+      error('Network/JavaScript error during booking', {
+        error: err instanceof Error ? err.message : 'Unknown error',
+        stack: err instanceof Error ? err.stack : undefined
+      });
       alert('Booking failed. Please check your connection and try again.');
     } finally {
       setIsLoading(false);
-      console.log('=== END BOOKING DEBUG ===');
+      debug('Booking form submission completed');
     }
   };
 
@@ -208,7 +238,7 @@ export default function BookingForm() {
     setIsSuccess(false);
     setFormData({
       name: '', email: '', phone: '', date: '', time: '', 
-      package: '', participants: '', specialRequests: ''
+      package: '', room: '', participants: '', specialRequests: ''
     });
   };
 
@@ -415,6 +445,30 @@ export default function BookingForm() {
             ))}
           </select>
           {errors.package && <p className="text-red-400 text-sm mt-1">{errors.package}</p>}
+        </div>
+
+        {/* Room Selection */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Choose Your Reality *
+          </label>
+          <select
+            name="room"
+            value={formData.room}
+            onChange={handleChange}
+            className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+              errors.room ? 'border-red-500' : 'border-white/20'
+            }`}
+          >
+            <option value="">Select a themed room</option>
+            {rooms.map(room => (
+              <option key={room.value} value={room.value}>{room.label}</option>
+            ))}
+          </select>
+          {errors.room && <p className="text-red-400 text-sm mt-1">{errors.room}</p>}
+          <p className="text-gray-400 text-xs mt-1">
+            🚀 Theory of Relativity | ⚛️ Quantum Theory | 🔮 Cyberpunk Dystopian
+          </p>
         </div>
 
         {/* Special Requests */}

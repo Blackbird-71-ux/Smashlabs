@@ -3,7 +3,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FaHammer, FaGlassMartiniAlt, FaTshirt, FaShieldAlt, FaArrowRight, FaCalendarAlt, FaUsers, FaClock, FaTools, FaChevronDown, FaUserShield, FaUserTie, FaArrowUp, FaStar, FaQuoteLeft, FaInstagram, FaTwitter, FaFacebook, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCoffee, FaBriefcase } from 'react-icons/fa'
+import { FaHammer, FaGlassMartiniAlt, FaTshirt, FaShieldAlt, FaArrowRight, FaCalendarAlt, FaUsers, FaClock, FaTools, FaChevronDown, FaUserShield, FaUserTie, FaArrowUp, FaStar, FaQuoteLeft, FaInstagram, FaTwitter, FaFacebook, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCoffee, FaBriefcase, FaRocket, FaAtom, FaMicrochip } from 'react-icons/fa'
 import { useEffect, useState, useRef } from 'react'
 import { trackButtonClick, trackFormSubmit, trackVideoInteraction, trackBookingAttempt, trackContactAttempt, trackError } from '@/lib/analytics'
 import { GridSkeleton, TextSkeleton, Skeleton } from '@/components/Skeleton'
@@ -655,6 +655,170 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Themed Rooms Section */}
+      <section id="themed-rooms" className="py-20 sm:py-32 bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-pink-900/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-noise opacity-5" />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text">
+              Choose Your Reality
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              Step into immersive themed environments where physics meets destruction. 
+              Three unique universes, each designed to obliterate stress through the power of science.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Theory of Relativity Room */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              whileHover={{ scale: 1.02, y: -8 }}
+              className="group bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-8 rounded-2xl backdrop-blur-sm border border-blue-700/30 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FaRocket className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
+                Theory of Relativity
+              </h3>
+              <p className="text-blue-300 font-medium text-sm mb-4">
+                Time Dilates, Stress Accelerates Away
+              </p>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Step into Einstein's universe where the laws of physics bend to your will. 
+                Experience cosmic destruction with gravity-defying smash zones and time dilation effects.
+              </p>
+              <div className="bg-black/30 p-4 rounded-xl mb-6 border border-blue-800/50">
+                <p className="text-gray-300 text-sm italic">
+                  E=mc² - Channel your energy into pure destructive force
+                </p>
+              </div>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <p className="text-2xl font-bold text-white">₹3,500</p>
+                  <p className="text-gray-400 text-sm">45 minutes</p>
+                </div>
+                <motion.a
+                  href="/rooms/theory-of-relativity"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-800 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+                >
+                  Enter Universe
+                </motion.a>
+              </div>
+            </motion.div>
+
+            {/* Quantum Theory Room */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ scale: 1.02, y: -8 }}
+              className="group bg-gradient-to-br from-green-900/20 to-emerald-900/20 p-8 rounded-2xl backdrop-blur-sm border border-green-700/30 hover:border-green-500/50 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-500"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FaAtom className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">
+                Quantum Theory
+              </h3>
+              <p className="text-green-300 font-medium text-sm mb-4">
+                Uncertainty Principle: Destroy Everything
+              </p>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Enter the quantum realm where possibilities are infinite and destruction is probable. 
+                Experience subatomic smashing with entanglement targets and probability waves.
+              </p>
+              <div className="bg-black/30 p-4 rounded-xl mb-6 border border-green-800/50">
+                <p className="text-gray-300 text-sm italic">
+                  ΔE×Δt ≥ ℏ/2 - You can't know stress and relaxation simultaneously
+                </p>
+              </div>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <p className="text-2xl font-bold text-white">₹4,000</p>
+                  <p className="text-gray-400 text-sm">50 minutes</p>
+                </div>
+                <motion.a
+                  href="/rooms/quantum-theory"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-700 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all duration-300"
+                >
+                  Enter Quantum
+                </motion.a>
+              </div>
+            </motion.div>
+
+            {/* Cyberpunk Dystopian Room */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              whileHover={{ scale: 1.02, y: -8 }}
+              className="group bg-gradient-to-br from-pink-900/20 to-cyan-900/20 p-8 rounded-2xl backdrop-blur-sm border border-pink-700/30 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-500"
+            >
+                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                 <FaMicrochip className="w-8 h-8 text-white" />
+               </div>
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-pink-400 transition-colors duration-300">
+                Cyberpunk Dystopian
+              </h3>
+              <p className="text-pink-300 font-medium text-sm mb-4">
+                Hack Reality, Smash the System
+              </p>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Jack into a neon-soaked future where corporations rule and rebellion is the only escape. 
+                Break free from digital prisons with holographic displays and AR destruction.
+              </p>
+              <div className="bg-black/30 p-4 rounded-xl mb-6 border border-pink-800/50">
+                <p className="text-gray-300 text-sm italic">
+                  I = V/R - Overcome the system's resistance with high-voltage destruction
+                </p>
+              </div>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <p className="text-2xl font-bold text-white">₹4,500</p>
+                  <p className="text-gray-400 text-sm">60 minutes</p>
+                </div>
+                <motion.a
+                  href="/rooms/cyberpunk-dystopian"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-6 py-3 bg-gradient-to-r from-pink-500 to-cyan-400 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all duration-300"
+                >
+                  Jack In
+                </motion.a>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-16"
+          >
+            <Link
+              href="/rooms"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold rounded-lg hover:from-red-700 hover:to-orange-700 transition-all duration-300 group"
+            >
+              <span>Explore All Realities</span>
+              <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 

@@ -5,6 +5,7 @@ const Booking = require('../models/Booking');
 const emailService = require('../services/emailService');
 const Package = require('../models/Package');
 const { sendBookingConfirmation, sendBookingUpdate } = require('../services/emailService');
+const { info, error, warn, debug } = require('../services/logger');
 
 // Validation middleware for booking
 const validateBooking = [
@@ -110,12 +111,18 @@ router.get('/', async (req, res) => {
                 hasPrev: page > 1
             }
         });
-    } catch (error) {
-        console.error('Error fetching bookings:', error);
+    } catch (err) {
+        error('Failed to fetch bookings', {
+            error: err.message,
+            stack: err.stack,
+            requestId: req.id,
+            query: req.query
+        });
         res.status(500).json({
             success: false,
             message: 'Failed to fetch bookings',
-            error: error.message
+            error: err.message,
+            requestId: req.id
         });
     }
 });
@@ -136,12 +143,18 @@ router.get('/:id', async (req, res) => {
             success: true,
             data: booking
         });
-    } catch (error) {
-        console.error('Error fetching booking:', error);
+    } catch (err) {
+        error('Failed to fetch booking by ID', {
+            error: err.message,
+            stack: err.stack,
+            requestId: req.id,
+            bookingId: req.params.id
+        });
         res.status(500).json({
             success: false,
             message: 'Failed to fetch booking',
-            error: error.message
+            error: err.message,
+            requestId: req.id
         });
     }
 });
@@ -162,12 +175,18 @@ router.get('/booking-id/:bookingId', async (req, res) => {
             success: true,
             data: booking
         });
-    } catch (error) {
-        console.error('Error fetching booking:', error);
+    } catch (err) {
+        error('Failed to fetch booking by booking ID', {
+            error: err.message,
+            stack: err.stack,
+            requestId: req.id,
+            bookingId: req.params.bookingId
+        });
         res.status(500).json({
             success: false,
             message: 'Failed to fetch booking',
-            error: error.message
+            error: err.message,
+            requestId: req.id
         });
     }
 });
@@ -243,7 +262,13 @@ router.post('/', async (req, res) => {
         try {
             await sendBookingConfirmation(booking);
         } catch (emailError) {
-            console.error('Failed to send confirmation email:', emailError);
+            warn('Failed to send confirmation email', {
+                error: emailError.message,
+                stack: emailError.stack,
+                requestId: req.id,
+                bookingId: booking.bookingId,
+                customerEmail: booking.email
+            });
             // Don't fail the booking if email fails
         }
         
@@ -253,21 +278,35 @@ router.post('/', async (req, res) => {
             data: booking
         });
         
-    } catch (error) {
-        console.error('Error creating booking:', error);
+    } catch (err) {
+        error('Failed to create booking', {
+            error: err.message,
+            stack: err.stack,
+            requestId: req.id,
+            bookingData: {
+                customerName: req.body.customerName,
+                email: req.body.email,
+                package: req.body.package,
+                date: req.body.date,
+                time: req.body.time,
+                people: req.body.people
+            }
+        });
         
-        if (error.name === 'ValidationError') {
+        if (err.name === 'ValidationError') {
             return res.status(400).json({
                 success: false,
                 message: 'Validation error',
-                errors: Object.values(error.errors).map(err => err.message)
+                errors: Object.values(err.errors).map(error => error.message),
+                requestId: req.id
             });
         }
         
         res.status(500).json({
             success: false,
             message: 'Failed to create booking',
-            error: error.message
+            error: err.message,
+            requestId: req.id
         });
     }
 });
