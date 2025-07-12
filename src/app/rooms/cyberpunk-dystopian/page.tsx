@@ -252,18 +252,19 @@ export default function CyberpunkDystopianPage() {
         </div>
       </div>
 
+      {/* Back Navigation */}
+      <div className="absolute top-8 left-8 z-[60]">
+        <Link
+          href="/rooms"
+          className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 hover:bg-black/60 shadow-lg"
+        >
+          <FaArrowLeft />
+          <span>Back to Rooms</span>
+        </Link>
+      </div>
+
       {/* Content sections with enhanced z-index */}
       <div className="relative z-20">
-        {/* Back Navigation */}
-        <div className="fixed top-8 left-8 z-[9999]">
-          <button
-            onClick={() => window.location.href = '/rooms'}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-black/80 hover:bg-black/90 text-white border border-gray-600 hover:border-gray-400 rounded-lg transition-all duration-300 shadow-xl backdrop-blur-sm cursor-pointer"
-          >
-            <FaArrowLeft className="w-4 h-4" />
-            <span className="font-medium">Back to Rooms</span>
-          </button>
-        </div>
 
         {/* Hero Section */}
         <div className="relative min-h-screen flex items-center justify-center px-4">
@@ -318,7 +319,7 @@ export default function CyberpunkDystopianPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-16 relative z-30"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               Cyberpunk Arsenal
@@ -328,7 +329,7 @@ export default function CyberpunkDystopianPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-30">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -360,7 +361,7 @@ export default function CyberpunkDystopianPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-16 relative z-30"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               Laws of Digital Rebellion
@@ -370,7 +371,7 @@ export default function CyberpunkDystopianPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-30">
             {cyberpunkLaws.map((item, index) => (
               <motion.div
                 key={index}
@@ -408,7 +409,7 @@ export default function CyberpunkDystopianPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-16 relative z-30"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               What You'll Destroy
@@ -418,7 +419,7 @@ export default function CyberpunkDystopianPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-30">
             {cyberpunkElements.map((element, index) => (
               <motion.div
                 key={index}
@@ -446,7 +447,7 @@ export default function CyberpunkDystopianPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-16 relative z-30"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               Philosophy of Rebellion
@@ -456,7 +457,7 @@ export default function CyberpunkDystopianPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-30">
             {hackingQuotes.map((quote, index) => (
               <motion.div
                 key={index}
