@@ -115,13 +115,14 @@ jobs:
         run: npm audit --audit-level moderate
         continue-on-error: true
 
-      - name: Run Snyk security scan
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=medium
-        continue-on-error: true
+      # Snyk security scan (disabled - configure SNYK_TOKEN secret to enable)
+      # - name: Run Snyk security scan
+      #   uses: snyk/actions/node@master
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      #   with:
+      #     args: --severity-threshold=medium
+      #   continue-on-error: true
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
