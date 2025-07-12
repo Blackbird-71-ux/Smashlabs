@@ -1,126 +1,109 @@
-# SmashLabs - Break Free. Smash Stress.
+# SmashLabs - Themed Rage Room Experience
 
-A modern web application for SmashLabs, a unique stress relief and team building experience. Built with Next.js, TypeScript, and Tailwind CSS.
+A Next.js application for SmashLabs, featuring themed rage rooms with immersive physics-based experiences.
 
-## Features
+## 🚀 Quick Start
 
-- 🎥 Hero video section with optimized loading
-- 📱 Responsive design for all devices
-- 🎨 Modern UI with smooth animations
-- 🔍 SEO optimized with metadata
-- 📊 Analytics tracking
-- ♿ Accessibility features
-- 🚀 Performance optimized
-- 🔄 Error boundary handling
-- ⚡ Loading skeletons for better UX
-
-## Tech Stack
-
-- [Next.js](https://nextjs.org/) - React framework
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Google Analytics](https://analytics.google.com/) - Analytics tracking
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18.x or later
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/smashlabs.git
-   cd smashlabs
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. Create a `.env.local` file in the root directory and add your environment variables:
-   ```env
-   NEXT_PUBLIC_SITE_URL=https://smashlabs.in
-   NEXT_PUBLIC_GA_ID=your-ga-id
-   ```
-
-4. Start the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Project Structure
-
-```
-smashlabs/
-├── public/              # Static files
-├── src/
-│   ├── app/            # App router pages
-│   ├── components/     # React components
-│   ├── lib/           # Utility functions
-│   └── styles/        # Global styles
-├── .env.local         # Environment variables
-├── next.config.js     # Next.js configuration
-├── package.json       # Project dependencies
-├── tailwind.config.ts # Tailwind CSS configuration
-└── tsconfig.json     # TypeScript configuration
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Blackbird-71-ux/Smashlabs.git
+cd Smashlabs
 ```
 
-## Development
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-### Code Style
+### 3. Set Up Environment Variables
+```bash
+# Copy the template file
+cp dev.env.template dev.env
 
-- Follow the [TypeScript style guide](https://google.github.io/styleguide/tsguide.html)
-- Use [Prettier](https://prettier.io/) for code formatting
-- Follow [ESLint](https://eslint.org/) rules
+# Edit dev.env with your actual credentials
+# IMPORTANT: Never commit dev.env to git!
+```
 
-### Commands
+### 4. Run the Development Server
+```bash
+npm run dev
+```
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
+## 🔒 Security & Environment Variables
 
-## Deployment
+### ⚠️ IMPORTANT: Never commit secrets to git!
 
-The application is deployed on [Vercel](https://vercel.com/). Each push to the main branch triggers a new deployment.
+1. **Use the template**: Copy `dev.env.template` to `dev.env`
+2. **Fill in your credentials**: Add your real database URLs, API keys, etc.
+3. **Keep it private**: The `dev.env` file is gitignored and should never be committed
 
-### Environment Variables
+### Required Environment Variables
 
-Make sure to set the following environment variables in your Vercel project:
+```env
+# Database
+MONGODB_URI=your-mongodb-connection-string
 
-- `NEXT_PUBLIC_SITE_URL` - Your production URL
-- `NEXT_PUBLIC_GA_ID` - Google Analytics ID
+# Authentication
+JWT_SECRET=your-super-secure-jwt-secret-minimum-32-characters
+API_SECRET_KEY=your-api-secret-key
 
-## Contributing
+# Email (optional)
+EMAIL_HOST=your-email-host
+EMAIL_USER=your-email
+EMAIL_PASS=your-email-password
+```
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### MongoDB Atlas Setup
 
-## License
+1. Create a free MongoDB Atlas account
+2. Create a new cluster
+3. Create a database user with read/write permissions
+4. Get your connection string from the "Connect" button
+5. Replace `YOUR_DB_USER`, `YOUR_DB_PASSWORD`, and `YOUR_CLUSTER` in the connection string
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🎮 Features
 
-## Acknowledgments
+- **Theory of Relativity Room**: Physics-themed rage room with black hole effects
+- **Quantum Theory Room**: Subatomic particle collision chamber
+- **Cyberpunk Dystopian Room**: Neon-soaked corporate rebellion experience
+- **Responsive Design**: Works on all devices
+- **Booking System**: Integrated booking and contact forms
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+## 🛠️ Tech Stack
 
-## Contact
+- **Frontend**: Next.js 14, React, TypeScript
+- **Styling**: Tailwind CSS, Framer Motion
+- **Backend**: Node.js, Express
+- **Database**: MongoDB
+- **Authentication**: JWT
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
-Project Link: [https://github.com/yourusername/smashlabs](https://github.com/yourusername/smashlabs) 
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🔧 Development
+
+### Project Structure
+```
+src/
+├── app/                 # Next.js app router pages
+├── components/          # React components
+├── lib/                # Utility functions
+└── types/              # TypeScript types
+```
+
+### Available Scripts
+
+```bash
+npm run dev         # Start development server
+npm run build       # Build for production
+npm run start       # Start production server
+npm run lint        # Run ESLint
+npm test           # Run tests
+```
+
+## 🚀 Deployment
+
+See `DEPLOYMENT_GUIDE.md` for detailed deployment instructions.
+
+**Remember**: Always use environment variables for sensitive data and never commit secrets to your repository! 

@@ -40,9 +40,9 @@ Create production `.env` file:
 NODE_ENV=production
 PORT=3000
 
-# Database
-MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/smashlabs
-REDIS_URL=redis://user:password@redis-host:6379
+# Database (REPLACE WITH YOUR ACTUAL CREDENTIALS)
+MONGODB_URI=mongodb+srv://YOUR_DB_USER:YOUR_DB_PASSWORD@YOUR_CLUSTER.mongodb.net/smashlabs
+REDIS_URL=redis://YOUR_REDIS_USER:YOUR_REDIS_PASSWORD@YOUR_REDIS_HOST:6379
 
 # Authentication
 JWT_SECRET=your-super-secure-jwt-secret-key-minimum-32-characters
