@@ -293,18 +293,18 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-gray-900 text-white">
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-gray-900 text-white overflow-x-hidden">
       <CustomCursor />
               <SmashAnimation isActive={showSmashAnimation} type={smashType} />
       
       {/* Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-red-500 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-red-500 origin-left z-50 max-w-full"
         style={{ scaleX: scrollYProgress }}
       />
 
       {/* Hero Section with Parallax */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 w-full max-w-full">
         <motion.div 
           className="absolute inset-0 w-full h-full"
           style={{ y, scale }}

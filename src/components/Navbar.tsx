@@ -105,16 +105,22 @@ const Navbar = () => {
     }
   };
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <nav 
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 overflow-x-hidden ${
         isScrolled ? 'bg-dark-900/90 shadow-lg backdrop-blur-lg border-b border-primary-500/20' : 'bg-transparent backdrop-blur-none border-b border-transparent'
       }`}
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex justify-between items-center h-20 w-full">
           {/* Logo and Title */}
           <Link 
             href="/" 
@@ -161,7 +167,7 @@ const Navbar = () => {
           <button
             onClick={toggleMobileMenu}
             onKeyDown={handleMobileMenuKeyDown}
-            className="md:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 transition-colors duration-300"
+            className="md:hidden p-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label={isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -176,32 +182,42 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div 
-            id="mobile-menu"
-            className="md:hidden bg-dark-900/95 backdrop-blur-lg border-t border-gray-700/50 py-4"
-            role="menu"
-            aria-labelledby="mobile-menu-button"
-          >
-            <div className="flex flex-col space-y-2 px-4">
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={(e) => handleNavigation(link, e)}
-                  onKeyDown={(e) => handleKeyDown(e, link)}
-                  className={`text-left px-4 py-3 rounded-lg font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 ${
-                    (isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))
-                      ? 'text-white font-semibold bg-red-600/20' 
-                      : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
-                  }`}
-                  aria-current={((isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))) ? 'page' : undefined}
-                  role="menuitem"
-                  tabIndex={0}
-                >
-                  {link.label}
-                </button>
-              ))}
+          <>
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+              onClick={handleBackdropClick}
+              aria-hidden="true"
+            />
+            
+            {/* Menu Content */}
+            <div 
+              id="mobile-menu"
+              className="md:hidden bg-dark-900/95 backdrop-blur-lg border-t border-gray-700/50 py-4 w-full max-w-full overflow-x-hidden relative z-50"
+              role="menu"
+              aria-labelledby="mobile-menu-button"
+            >
+              <div className="flex flex-col space-y-2 px-4 w-full">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.id}
+                    onClick={(e) => handleNavigation(link, e)}
+                    onKeyDown={(e) => handleKeyDown(e, link)}
+                    className={`text-left px-4 py-4 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 w-full max-w-full min-h-[44px] flex items-center transform hover:scale-105 active:scale-95 ${
+                      (isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))
+                        ? 'text-white font-semibold bg-red-600/20' 
+                        : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
+                    }`}
+                    aria-current={((isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))) ? 'page' : undefined}
+                    role="menuitem"
+                    tabIndex={0}
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </nav>

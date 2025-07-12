@@ -305,7 +305,7 @@ export default function BookingForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-base font-medium text-gray-300 mb-3">
               Full Name *
             </label>
             <input
@@ -313,17 +313,18 @@ export default function BookingForm() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+              className={`w-full px-4 py-4 text-base bg-black/30 border rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
                 errors.name ? 'border-red-500' : 'border-white/20'
               }`}
               placeholder="Enter your full name"
+              style={{ fontSize: '16px' }} // Prevents iOS zoom
             />
             {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-base font-medium text-gray-300 mb-3">
               Email Address *
             </label>
             <input
@@ -331,21 +332,22 @@ export default function BookingForm() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+              className={`w-full px-4 py-4 text-base bg-black/30 border rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
                 errors.email ? 'border-red-500' : 'border-white/20'
               }`}
               placeholder="Enter your email"
+              style={{ fontSize: '16px' }} // Prevents iOS zoom
             />
             {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
           </div>
 
           {/* Phone */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-base font-medium text-gray-300 mb-3">
               Phone Number *
             </label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm text-gray-300 bg-black/30 border border-r-0 border-white/20 rounded-l-lg">
+              <span className="inline-flex items-center px-3 text-base text-gray-300 bg-black/30 border border-r-0 border-white/20 rounded-l-lg">
                 +91
               </span>
               <input
@@ -353,10 +355,11 @@ export default function BookingForm() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className={`flex-1 px-4 py-3 bg-black/30 border rounded-r-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+                className={`flex-1 px-4 py-4 text-base bg-black/30 border rounded-r-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
                   errors.phone ? 'border-red-500' : 'border-white/20'
                 }`}
                 placeholder="Enter 10-digit phone number"
+                style={{ fontSize: '16px' }} // Prevents iOS zoom
               />
             </div>
             {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone}</p>}
@@ -364,16 +367,17 @@ export default function BookingForm() {
 
           {/* Participants */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-base font-medium text-gray-300 mb-3">
               Number of Participants *
             </label>
             <select
               name="participants"
               value={formData.participants}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+              className={`w-full px-4 py-4 text-base bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
                 errors.participants ? 'border-red-500' : 'border-white/20'
               }`}
+              style={{ fontSize: '16px' }} // Prevents iOS zoom
             >
               <option value="">Select participants</option>
               <option value="1">1 Person</option>
@@ -388,7 +392,7 @@ export default function BookingForm() {
 
           {/* Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-base font-medium text-gray-300 mb-3">
               Preferred Date *
             </label>
             <input
@@ -397,25 +401,27 @@ export default function BookingForm() {
               value={formData.date}
               onChange={handleChange}
               min={new Date().toISOString().split('T')[0]}
-              className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+              className={`w-full px-4 py-4 text-base bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
                 errors.date ? 'border-red-500' : 'border-white/20'
               }`}
+              style={{ fontSize: '16px' }} // Prevents iOS zoom
             />
             {errors.date && <p className="text-red-400 text-sm mt-1">{errors.date}</p>}
           </div>
 
           {/* Time */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-base font-medium text-gray-300 mb-3">
               Preferred Time *
             </label>
             <select
               name="time"
               value={formData.time}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+              className={`w-full px-4 py-4 text-base bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
                 errors.time ? 'border-red-500' : 'border-white/20'
               }`}
+              style={{ fontSize: '16px' }} // Prevents iOS zoom
             >
               <option value="">Select time</option>
               {timeSlots.map(time => (
@@ -428,16 +434,17 @@ export default function BookingForm() {
 
         {/* Package */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-base font-medium text-gray-300 mb-3">
             Choose Your Package *
           </label>
           <select
             name="package"
             value={formData.package}
             onChange={handleChange}
-            className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+            className={`w-full px-4 py-4 text-base bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
               errors.package ? 'border-red-500' : 'border-white/20'
             }`}
+            style={{ fontSize: '16px' }} // Prevents iOS zoom
           >
             <option value="">Select a package</option>
             {packages.map(pkg => (
@@ -449,16 +456,17 @@ export default function BookingForm() {
 
         {/* Room Selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-base font-medium text-gray-300 mb-3">
             Choose Your Reality *
           </label>
           <select
             name="room"
             value={formData.room}
             onChange={handleChange}
-            className={`w-full px-4 py-3 bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
+            className={`w-full px-4 py-4 text-base bg-black/30 border rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 ${
               errors.room ? 'border-red-500' : 'border-white/20'
             }`}
+            style={{ fontSize: '16px' }} // Prevents iOS zoom
           >
             <option value="">Select a themed room</option>
             {rooms.map(room => (
@@ -466,23 +474,24 @@ export default function BookingForm() {
             ))}
           </select>
           {errors.room && <p className="text-red-400 text-sm mt-1">{errors.room}</p>}
-          <p className="text-gray-400 text-xs mt-1">
+          <p className="text-gray-400 text-sm mt-2">
             🚀 Theory of Relativity | ⚛️ Quantum Theory | 🔮 Cyberpunk Dystopian
           </p>
         </div>
 
         {/* Special Requests */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-base font-medium text-gray-300 mb-3">
             Special Requests (Optional)
           </label>
           <textarea
             name="specialRequests"
             value={formData.specialRequests}
             onChange={handleChange}
-            rows={3}
-            className="w-full px-4 py-3 bg-black/30 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300"
+            rows={4}
+            className="w-full px-4 py-4 text-base bg-black/30 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300"
             placeholder="Any special requests or requirements?"
+            style={{ fontSize: '16px' }} // Prevents iOS zoom
           />
         </div>
 
@@ -492,11 +501,11 @@ export default function BookingForm() {
           whileTap={!isLoading ? { scale: 0.98 } : {}}
           type="submit"
           disabled={isLoading}
-          className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-semibold transition-colors duration-200 border border-red-500 hover:border-red-600 uppercase tracking-wide disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-lg text-base font-semibold transition-colors duration-200 border border-red-500 hover:border-red-600 uppercase tracking-wide disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[56px]"
         >
           {isLoading ? (
             <>
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
               Booking...
             </>
           ) : (

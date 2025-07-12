@@ -25,7 +25,9 @@ const playfair = Playfair_Display({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
@@ -230,6 +232,25 @@ export default function RootLayout({
             </div>
           </ToastProvider>
         </AccessibilityProvider>
+        
+        {/* iPhone Safari viewport height fix */}
+        <Script id="viewport-height-fix" strategy="afterInteractive">
+          {`
+            function setVH() {
+              let vh = window.innerHeight * 0.01;
+              document.documentElement.style.setProperty('--vh', vh + 'px');
+            }
+            
+            // Set initial value
+            setVH();
+            
+            // Update on resize (including iPhone Safari address bar changes)
+            window.addEventListener('resize', setVH);
+            window.addEventListener('orientationchange', () => {
+              setTimeout(setVH, 100);
+            });
+          `}
+        </Script>
       </body>
     </html>
   );
