@@ -41,8 +41,10 @@ NODE_ENV=production
 PORT=3000
 
 # Database (REPLACE WITH YOUR ACTUAL CREDENTIALS)
-MONGODB_URI=mongodb+srv://YOUR_DB_USER:YOUR_DB_PASSWORD@YOUR_CLUSTER.mongodb.net/smashlabs
-REDIS_URL=redis://YOUR_REDIS_USER:YOUR_REDIS_PASSWORD@YOUR_REDIS_HOST:6379
+# Get your MongoDB connection string from MongoDB Atlas dashboard
+# Format: mongodb+srv://username:password@cluster.mongodb.net/database-name
+MONGODB_URI=your-mongodb-connection-string-here
+REDIS_URL=your-redis-connection-string-here
 
 # Authentication
 JWT_SECRET=your-super-secure-jwt-secret-key-minimum-32-characters
