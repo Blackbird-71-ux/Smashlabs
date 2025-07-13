@@ -183,6 +183,7 @@ const SmashAnimation: React.FC<SmashAnimationProps> = ({
       ref={containerRef}
       className="fixed inset-0 pointer-events-none z-50 overflow-hidden"
       aria-hidden="true"
+      suppressHydrationWarning={true}
     >
       {/* Impact Flash Effect */}
       <AnimatePresence>
@@ -193,17 +194,19 @@ const SmashAnimation: React.FC<SmashAnimationProps> = ({
             exit={{ opacity: 0, scale: 3 }}
             transition={{ duration: 0.2 }}
             className="absolute inset-0 flex items-center justify-center"
+            suppressHydrationWarning={true}
           >
             <div
               className="w-32 h-32 rounded-full blur-xl"
               style={{ backgroundColor: config.impactColor }}
+              suppressHydrationWarning={true}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Particles */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" suppressHydrationWarning={true}>
         {particles.map(particle => (
           <motion.div
             key={particle.id}
@@ -255,10 +258,12 @@ const SmashAnimation: React.FC<SmashAnimationProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            suppressHydrationWarning={true}
           >
             <div
               className="w-20 h-20 rounded-full border-4 border-current"
               style={{ borderColor: config.colors[0] }}
+              suppressHydrationWarning={true}
             />
           </motion.div>
         )}

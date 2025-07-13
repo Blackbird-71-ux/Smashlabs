@@ -143,7 +143,6 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'hero-pattern': 'linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.6))',
         'rage-gradient': 'linear-gradient(135deg, #f43f5e 0%, #e11d48 50%, #be123c 100%)',
-        'noise-pattern': 'url(\'/images/noise.png\')',
         'smash-gradient': 'linear-gradient(135deg, #f43f5e 0%, #e11d48 50%, #be123c 100%)',
         'glass-effect': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
       },

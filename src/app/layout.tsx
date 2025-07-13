@@ -8,6 +8,7 @@ import BackToTop from '@/components/BackToTop'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import { ToastProvider } from '@/components/ToastProvider'
 import { AccessibilityProvider } from '@/components/AccessibilityProvider'
+import { GlobalHydrationFix } from '@/components/GlobalHydrationFix'
 import Script from 'next/script'
 
 const inter = Inter({ 
@@ -182,9 +183,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
+        {/* Load hydration warning suppression script first */}
+        <script 
+          src="/suppress-hydration-warnings.js" 
+          type="text/javascript"
+          suppressHydrationWarning={true}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          suppressHydrationWarning={true}
         />
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -218,6 +226,7 @@ export default function RootLayout({
           </>
         )}
         
+        <GlobalHydrationFix />
         <AccessibilityProvider>
           <ToastProvider>
             <div className="flex min-h-screen flex-col">

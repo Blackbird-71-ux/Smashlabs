@@ -118,9 +118,10 @@ const Navbar = () => {
       }`}
       role="navigation"
       aria-label="Main navigation"
+      suppressHydrationWarning={true}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex justify-between items-center h-20 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" suppressHydrationWarning={true}>
+        <div className="flex justify-between items-center h-20 w-full" suppressHydrationWarning={true}>
           {/* Logo and Title */}
           <Link 
             href="/" 
@@ -143,7 +144,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6" role="menubar">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6" role="menubar" suppressHydrationWarning={true}>
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -188,6 +189,7 @@ const Navbar = () => {
               className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
               onClick={handleBackdropClick}
               aria-hidden="true"
+              suppressHydrationWarning={true}
             />
             
             {/* Menu Content */}
@@ -196,8 +198,9 @@ const Navbar = () => {
               className="md:hidden bg-dark-900/95 backdrop-blur-lg border-t border-gray-700/50 py-4 w-full max-w-full overflow-x-hidden relative z-50"
               role="menu"
               aria-labelledby="mobile-menu-button"
+              suppressHydrationWarning={true}
             >
-              <div className="flex flex-col space-y-2 px-4 w-full">
+              <div className="flex flex-col space-y-2 px-4 w-full" suppressHydrationWarning={true}>
                 {navLinks.map((link) => (
                   <button
                     key={link.id}

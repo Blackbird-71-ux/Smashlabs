@@ -633,4 +633,10 @@ a[role="button"] *,
 [class*="bg-purple-"] *,
 [class*="bg-blue-"] * {
   color: inherit !important;
+}
+
+/* Browser Extension Isolation */
+/* Force consistent rendering regardless of browser extensions */
+html, body, #__next, main {
+  isolation: isolate;
 } 

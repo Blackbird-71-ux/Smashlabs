@@ -293,7 +293,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-gray-900 text-white overflow-x-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-gray-900 text-white overflow-x-hidden" suppressHydrationWarning={true}>
       <CustomCursor />
               <SmashAnimation isActive={showSmashAnimation} type={smashType} />
       
@@ -301,13 +301,15 @@ export default function Home() {
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-red-500 origin-left z-50 max-w-full"
         style={{ scaleX: scrollYProgress }}
+        suppressHydrationWarning={true}
       />
 
       {/* Hero Section with Parallax */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 w-full max-w-full">
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 w-full max-w-full" suppressHydrationWarning={true}>
         <motion.div 
           className="absolute inset-0 w-full h-full"
           style={{ y, scale }}
+          suppressHydrationWarning={true}
         >
           <video
             autoPlay
@@ -315,7 +317,6 @@ export default function Home() {
             loop
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
-            poster="/images/hero-poster.jpg"
             preload="auto"
             onPlay={() => trackVideoInteraction('play', 'hero-background')}
             onPause={() => trackVideoInteraction('pause', 'hero-background')}
@@ -325,12 +326,13 @@ export default function Home() {
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-dark-900/70 to-dark-950/90"></div>
         </motion.div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10" suppressHydrationWarning={true}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center relative z-10"
+            suppressHydrationWarning={true}
           >
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-red-500">
               Unleash Your Inner Beast
@@ -346,6 +348,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
+              suppressHydrationWarning={true}
             >
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -408,7 +411,7 @@ export default function Home() {
       </motion.button>
 
       {/* Enhanced Stats Section */}
-      <section id="stats" className="section bg-black/20 backdrop-blur-sm py-24 relative overflow-hidden">
+      <section id="stats" className="section bg-black/20 backdrop-blur-sm py-24 relative overflow-hidden" suppressHydrationWarning={true}>
         <div className="absolute inset-0 bg-noise-pattern opacity-10" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -485,7 +488,7 @@ export default function Home() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-16 sm:py-24 bg-black/10 backdrop-blur-sm relative overflow-hidden">
+      <section id="experience" className="py-16 sm:py-24 bg-black/10 backdrop-blur-sm relative overflow-hidden" suppressHydrationWarning={true}>
         <div className="absolute inset-0 bg-noise opacity-5" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -563,7 +566,7 @@ export default function Home() {
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="w-full h-full"
+                  className="relative w-full h-full"
                 >
                   <Image
                     src="/smashlabs-experience-room.png"
@@ -1076,7 +1079,7 @@ export default function Home() {
       </section>
 
       {/* Enhanced Gallery Section */}
-      <section id="gallery" className="py-24 bg-gradient-to-b from-dark-900 to-dark-950 relative overflow-hidden">
+      <section id="gallery" className="py-24 bg-gradient-to-b from-dark-900 to-dark-950 relative overflow-hidden" suppressHydrationWarning={true}>
         <div className="absolute inset-0 bg-noise opacity-5" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -1107,6 +1110,7 @@ export default function Home() {
                     src="/images/gallery-1.jpg.png"
                     alt="SmashLabs Gallery Image 1"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1124,6 +1128,7 @@ export default function Home() {
                     src="/images/gallery-2.jpg.png"
                     alt="SmashLabs Gallery Image 2"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1141,6 +1146,7 @@ export default function Home() {
                     src="/images/gallery-3.jpg.png"
                     alt="SmashLabs Gallery Image 3"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1162,6 +1168,7 @@ export default function Home() {
                       src="/images/gallery-4.jpg.png"
                       alt="SmashLabs Gallery Image 4"
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1179,6 +1186,7 @@ export default function Home() {
                       src="/images/gallery-5.jpg.png"
                       alt="SmashLabs Gallery Image 5"
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
