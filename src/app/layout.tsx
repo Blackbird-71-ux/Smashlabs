@@ -183,12 +183,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        {/* Load hydration warning suppression script first */}
-        <script 
-          src="/suppress-hydration-warnings.js" 
-          type="text/javascript"
-          suppressHydrationWarning={true}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -201,6 +195,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.google-analytics.com" />
       </head>
       <body className="min-h-screen bg-dark-950 font-sans text-gray-300 antialiased text-base leading-relaxed">
+        {/* Load hydration warning suppression script first */}
+        <Script
+          src="/suppress-hydration-warnings.js"
+          strategy="beforeInteractive"
+        />
+        
         {/* Google Analytics */}
         {GA_TRACKING_ID && (
           <>
