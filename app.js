@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: 'dev.env' });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -33,12 +33,15 @@ const limiter = rateLimit({
     message: {
         error: 'Too many requests from this IP, please try again later.'
     },
-    onLimitReached: (req, res, options) => {
+    handler: (req, res) => {
         security(`Rate limit exceeded for IP: ${req.ip}`, {
             ip: req.ip,
             userAgent: req.get('User-Agent'),
             url: req.url,
             method: req.method
+        });
+        res.status(429).json({
+            error: 'Too many requests from this IP, please try again later.'
         });
     }
 });

@@ -1,0 +1,44 @@
+{
+  "recommendations": [
+    // React & Next.js
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "ms-vscode.vscode-json",
+    
+    // JavaScript/TypeScript
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+    
+    // MongoDB & Database
+    "mongodb.mongodb-vscode",
+    
+    // Testing
+    "ms-playwright.playwright",
+    "orta.vscode-jest",
+    
+    // Git & GitHub
+    "github.vscode-pull-request-github",
+    "github.copilot",
+    "github.copilot-chat",
+    
+    // Development Experience
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.powershell",
+    
+    // Docker (for your docker-compose setup)
+    "ms-azuretools.vscode-docker",
+    
+    // Environment Files
+    "mikestead.dotenv",
+    
+    // Auto-formatting and productivity
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "ms-vscode.vscode-json",
+    
+    // API Development (for testing your Express routes)
+    "humao.rest-client"
+  ]
+} 

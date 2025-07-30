@@ -196,11 +196,16 @@ const authRateLimit = require('express-rate-limit')({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  onLimitReached: (req) => {
+  handler: (req, res) => {
     warn('Authentication rate limit exceeded', {
       ip: req.ip,
       userAgent: req.get('User-Agent'),
       requestId: req.id
+    });
+    res.status(429).json({
+      success: false,
+      message: 'Too many authentication attempts, please try again later',
+      error: 'RATE_LIMIT_EXCEEDED'
     });
   }
 });

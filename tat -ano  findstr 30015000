@@ -1,0 +1,5 @@
+[33m463ade4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update layout and room pages with latest changes
+[33m109f1a9[m Fix Vercel build error: Replace synchronous script with Next.js Script component
+[33m6c5176a[m Fix hydration warnings and browser compatibility issues
+[33m7730adc[m Fix Docker build: Remove public directory from .dockerignore
+[33me4a4531[m Remove unnecessary tsconfig.test.json file

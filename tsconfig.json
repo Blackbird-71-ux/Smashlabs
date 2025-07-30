@@ -30,8 +30,7 @@
     },
     "types": [
       "jest",
-      "@testing-library/jest-dom",
-      "node"
+      "@testing-library/jest-dom"
     ]
   },
   "include": [
