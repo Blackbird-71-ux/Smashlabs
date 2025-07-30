@@ -8,11 +8,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Simple route
+// Health check endpoints
 app.get('/', (req, res) => {
-    res.json({ 
+    res.status(200).json({ 
+        status: 'OK',
         message: 'SmashLabs Backend is Running!',
-        database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
+        database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
+        timestamp: new Date().toISOString(),
+        port: process.env.PORT || 5000
+    });
+});
+
+app.get('/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'healthy',
+        uptime: process.uptime(),
+        database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
     });
 });
 
@@ -35,11 +46,11 @@ async function connectDB() {
 async function startServer() {
     try {
         await connectDB();
-        const PORT = 5000;
-        app.listen(PORT, () => {
-            console.log(`🚀 Backend running at: http://localhost:${PORT}`);
-            console.log(`🌐 Frontend running at: http://localhost:3001`);
-            console.log(`🎯 Test backend: http://localhost:${PORT}`);
+        const PORT = process.env.PORT || 5000;
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`🚀 Backend running on port: ${PORT}`);
+            console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+            console.log(`🎯 Health check: http://localhost:${PORT}/`);
         });
     } catch (err) {
         console.error('❌ Server failed to start:', err.message);
