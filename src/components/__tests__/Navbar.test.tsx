@@ -34,14 +34,15 @@ describe('Navbar', () => {
     render(<Navbar />);
     
     // Check logo
-    expect(screen.getByRole('link', { name: /smashlabs home/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /smashtech home/i })).toBeInTheDocument();
     
     // Check navigation links (they have role="menuitem")
     expect(screen.getByRole('menuitem', { name: /home/i })).toBeInTheDocument();
-    expect(screen.getByRole('menuitem', { name: /experience/i })).toBeInTheDocument();
-    expect(screen.getByRole('menuitem', { name: /gallery/i })).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: /features/i })).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: /courses/i })).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: /learning paths/i })).toBeInTheDocument();
     expect(screen.getByRole('menuitem', { name: /testimonials/i })).toBeInTheDocument();
-    expect(screen.getByRole('menuitem', { name: /book now/i })).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: /sign up/i })).toBeInTheDocument();
   });
 
   it('toggles mobile menu when hamburger button is clicked', async () => {
