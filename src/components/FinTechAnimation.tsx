@@ -219,7 +219,9 @@ const FinTechAnimation = () => {
             ease: 'easeInOut',
           }}
         >
-          {Math.random() > 0.5 ? '1' : '0'}
+          <span suppressHydrationWarning={true}>
+            {Math.random() > 0.5 ? '1' : '0'}
+          </span>
         </motion.div>
       ))}
 

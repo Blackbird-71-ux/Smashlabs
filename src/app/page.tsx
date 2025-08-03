@@ -1312,7 +1312,7 @@ export default function Home() {
             <p className="text-gray-300 text-lg">
               All systems operational • Real-time financial innovation happening now
             </p>
-            <p className="text-gray-400 text-sm mt-2">
+            <p className="text-gray-400 text-sm mt-2" suppressHydrationWarning={true}>
               Last updated: {new Date().toLocaleTimeString()}
             </p>
           </motion.div>
