@@ -3,7 +3,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FaHammer, FaGlassMartiniAlt, FaTshirt, FaShieldAlt, FaArrowRight, FaCalendarAlt, FaUsers, FaClock, FaTools, FaChevronDown, FaUserShield, FaUserTie, FaArrowUp, FaStar, FaQuoteLeft, FaInstagram, FaTwitter, FaFacebook, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCoffee, FaBriefcase, FaRocket, FaAtom, FaMicrochip } from 'react-icons/fa'
+import { FaHammer, FaGlassMartiniAlt, FaTshirt, FaShieldAlt, FaArrowRight, FaCalendarAlt, FaUsers, FaClock, FaTools, FaChevronDown, FaUserShield, FaUserTie, FaArrowUp, FaStar, FaQuoteLeft, FaInstagram, FaTwitter, FaFacebook, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCoffee, FaBriefcase, FaRocket, FaAtom, FaMicrochip, FaGift } from 'react-icons/fa'
 import { useEffect, useState, useRef } from 'react'
 import { trackButtonClick, trackFormSubmit, trackVideoInteraction, trackBookingAttempt, trackContactAttempt, trackError } from '@/lib/analytics'
 import { GridSkeleton, TextSkeleton, Skeleton } from '@/components/Skeleton'
@@ -12,6 +12,7 @@ import Counter from '@/components/Counter'
 import CustomCursor from '@/components/CustomCursor'
 import SmashAnimation from '@/components/SmashAnimation'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import FinTechAnimation from '@/components/FinTechAnimation'
 import { useToast } from '@/components/ui/Toast'
 import { validateBookingForm, validateContactForm, sanitizeInput, type BookingFormData, type ContactFormData } from '@/lib/validation'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
@@ -311,19 +312,7 @@ export default function Home() {
           style={{ y, scale }}
           suppressHydrationWarning={true}
         >
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            preload="auto"
-            onPlay={() => trackVideoInteraction('play', 'hero-background')}
-            onPause={() => trackVideoInteraction('pause', 'hero-background')}
-            onEnded={() => trackVideoInteraction('ended', 'hero-background')}
-          >
-            <source src="/videos/smashlabs-bg.mp4.mp4" type="video/mp4" />
-          </video>
+          <FinTechAnimation />
           <div className="absolute inset-0 bg-gradient-to-b from-dark-900/70 to-dark-950/90"></div>
         </motion.div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10" suppressHydrationWarning={true}>
@@ -826,7 +815,7 @@ export default function Home() {
       </section>
 
       {/* Action Section */}
-      <section id="booknow" className="section bg-black/40 backdrop-blur-md py-24 relative overflow-hidden">
+      <section id="signup" className="section bg-black/40 backdrop-blur-md py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-noise opacity-5" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -835,44 +824,44 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-red-500">
-              Ready to Smash Your Stress?
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-blue-500">
+              Ready to Master FinTech?
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Choose your path to stress relief and join the SmashLabs community today!
+              Choose your learning path and join thousands mastering the future of finance and technology!
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Book Session Card */}
+            {/* Start Learning Card */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               whileHover={{ scale: 1.01, y: -4 }}
-              className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-dark-700/50 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300"
+              className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-dark-700/50 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300"
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaCalendarAlt className="w-8 h-8 text-red-400" />
+                <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaRocket className="w-8 h-8 text-blue-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Book Your Session</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Start Learning</h3>
                 <p className="text-gray-300 mb-6">
-                  Ready to smash? Book your stress relief session now and experience the ultimate adrenaline rush!
+                  Ready to master fintech? Start your journey with our comprehensive learning tracks and real-world projects!
                 </p>
                 <motion.a
-                  href="/book"
+                  href="/signup"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 border border-red-500 hover:border-red-600 hover:shadow-lg hover:shadow-red-500/25 uppercase tracking-wide inline-block"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 border border-blue-500 hover:border-blue-600 hover:shadow-lg hover:shadow-blue-500/25 uppercase tracking-wide inline-block"
                 >
-                  Book Now
+                  Sign Up Now
                 </motion.a>
               </div>
             </motion.div>
 
-            {/* Corporate Events Card */}
+            {/* Enterprise Training Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -884,46 +873,46 @@ export default function Home() {
                 <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <FaBriefcase className="w-8 h-8 text-purple-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">For Corporates</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Enterprise Training</h3>
                 <p className="text-gray-300 mb-6">
-                  Transform your team dynamics with professional corporate stress relief and team building experiences!
+                  Transform your team's fintech skills with custom corporate training programs and certification paths!
                 </p>
                 <motion.a
-                  href="/corporate-booking"
+                  href="/enterprise"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
                   className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 border border-purple-500 hover:border-purple-600 hover:shadow-lg hover:shadow-purple-500/25 uppercase tracking-wide inline-block"
                 >
-                  Book Corporate Event
+                  Get Enterprise Quote
                 </motion.a>
               </div>
             </motion.div>
 
-            {/* Join Community Card */}
+            {/* Free Trial Card */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               whileHover={{ scale: 1.01, y: -4 }}
-              className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-dark-700/50 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300"
+              className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-dark-700/50 hover:border-green-500/50 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300"
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaUsers className="w-8 h-8 text-blue-400" />
+                <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaGift className="w-8 h-8 text-green-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Join Our Community</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Free Trial</h3>
                 <p className="text-gray-300 mb-6">
-                  Be the first to know about our launch, exclusive offers, and stress-busting events!
+                  Explore our platform with a 7-day free trial. Access foundation courses and experience gamified learning!
                 </p>
                 <motion.a
-                  href="/register"
+                  href="/free-trial"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 border border-blue-500 hover:border-blue-600 hover:shadow-lg hover:shadow-blue-500/25 uppercase tracking-wide inline-block"
+                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 border border-green-500 hover:border-green-600 hover:shadow-lg hover:shadow-green-500/25 uppercase tracking-wide inline-block"
                 >
-                  Join Community
+                  Start Free Trial
                 </motion.a>
               </div>
             </motion.div>
@@ -941,48 +930,20 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-red-500">
-              What Our Customers Say
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-blue-500">
+              Student Success Stories
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Don't just take our word for it. Here's what our satisfied customers have to say about their SmashLabs experience.
+              Join thousands who've transformed their careers through SmashTech's gamified fintech education platform.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Testimonial 1 - John Doe */}
+            {/* Success Story 1 - Alex Rodriguez */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0 }}
-              whileHover={{ scale: 1.02 }}
-              className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-dark-700/50 hover:border-red-500/50 transition-all duration-300"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <FaStar key={i} className="w-5 h-5 text-yellow-400" />
-                ))}
-              </div>
-              <FaQuoteLeft className="w-8 h-8 text-gray-400/50 mb-4" />
-              <p className="text-gray-300 mb-6">
-                "SmashLabs exceeded all our expectations! The facilities are world-class, the safety protocols are impeccable, and the overall experience was absolutely phenomenal. Our entire team left feeling rejuvenated and more connected than ever."
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
-                  <span className="text-red-400 font-bold">JD</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white">John Doe</h4>
-                  <p className="text-sm text-gray-400">Corporate Event</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Testimonial 2 - Sarah Chen */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
               whileHover={{ scale: 1.02 }}
               className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-dark-700/50 hover:border-blue-500/50 transition-all duration-300"
             >
@@ -993,20 +954,48 @@ export default function Home() {
               </div>
               <FaQuoteLeft className="w-8 h-8 text-gray-400/50 mb-4" />
               <p className="text-gray-300 mb-6">
-                "What an incredible team bonding experience! The Chill Zone was perfect for debriefing after our smash session. My team has never been more unified, and the stress relief was exactly what we needed to tackle our next big project."
+                "SmashTech's blockchain track completely transformed my career! The hands-on projects and gamified learning made complex DeFi concepts easy to understand. I landed a senior developer role at a major fintech company within 3 months!"
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                  <span className="text-blue-400 font-bold">SC</span>
+                  <span className="text-blue-400 font-bold">AR</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white">Sarah Chen</h4>
-                  <p className="text-sm text-gray-400">Team Lead</p>
+                  <h4 className="font-semibold text-white">Alex Rodriguez</h4>
+                  <p className="text-sm text-gray-400">Blockchain Developer at PayTech</p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Testimonial 3 - Michael Rodriguez */}
+            {/* Success Story 2 - Maya Patel */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ scale: 1.02 }}
+              className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-dark-700/50 hover:border-green-500/50 transition-all duration-300"
+            >
+              <div className="flex items-center gap-2 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <FaStar key={i} className="w-5 h-5 text-yellow-400" />
+                ))}
+              </div>
+              <FaQuoteLeft className="w-8 h-8 text-gray-400/50 mb-4" />
+              <p className="text-gray-300 mb-6">
+                "The AI/ML track was a game-changer! The interactive trading simulations and real-world projects helped me transition from traditional banking to fintech. I increased my yearly salary by 40% and now lead algorithmic trading at a hedge fund!"
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <span className="text-green-400 font-bold">MP</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Maya Patel</h4>
+                  <p className="text-sm text-gray-400">Algo Trading Lead at Quantum Capital</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Success Story 3 - David Kim */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -1021,15 +1010,15 @@ export default function Home() {
               </div>
               <FaQuoteLeft className="w-8 h-8 text-gray-400/50 mb-4" />
               <p className="text-gray-300 mb-6">
-                "From an HR perspective, SmashLabs delivers on every front. The safety measures are comprehensive, the staff is highly professional, and the positive impact on employee morale and stress levels is measurable. This is corporate wellness done right."
+                "As a finance professional, SmashTech's digital payments track gave me the tech skills I was missing. The gamification kept me engaged, and the hands-on projects were perfect for my portfolio. I'm now Product Manager at a major fintech unicorn!"
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <span className="text-purple-400 font-bold">MR</span>
+                  <span className="text-purple-400 font-bold">DK</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white">Michael Rodriguez</h4>
-                  <p className="text-sm text-gray-400">HR Director</p>
+                  <h4 className="font-semibold text-white">David Kim</h4>
+                  <p className="text-sm text-gray-400">Product Manager at PayFlow</p>
                 </div>
               </div>
             </motion.div>
