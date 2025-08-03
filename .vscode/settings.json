@@ -30,5 +30,9 @@
   "yaml.format.bracketSpacing": true,
   "yaml.format.proseWrap": "preserve",
   "yaml.format.printWidth": 80,
-  "github-actions.workflows.pinned.workflows.refresh.enabled": true
-} 
+  "github-actions.workflows.pinned.workflows.refresh.enabled": true,
+  "jest.jestCommandLine": "npm test",
+  "jest.autoRun": "off",
+  "jest.showCoverageOnLoad": false,
+  "jest.runMode": "on-demand"
+}
