@@ -593,11 +593,11 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-red-500">
-              Why Choose SmashLabs?
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-blue-500">
+              Why Choose SmashTech?
             </h2>
             <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Experience the perfect blend of adrenaline, safety, and premium service in our state-of-the-art facility.
+              Master fintech through hands-on labs, real-world projects, and gamified learning experiences designed for today's financial technology landscape.
             </p>
           </motion.div>
 
@@ -605,27 +605,27 @@ export default function Home() {
             {[
               {
                 icon: FaTools,
-                title: 'Premium Arsenal',
-                description: 'State-of-the-art equipment and tools designed for maximum destruction and satisfaction.',
-                color: 'red'
+                title: 'Interactive Labs',
+                description: 'Hands-on coding environments with real fintech APIs, blockchain simulators, and trading platforms.',
+                color: 'blue'
               },
               {
                 icon: FaShieldAlt,
-                title: 'Controlled Chaos',
-                description: 'Expertly designed spaces engineered for safe yet exhilarating stress relief experiences.',
-                color: 'orange'
+                title: 'Gamified Learning',
+                description: 'Earn XP, unlock badges, and climb leaderboards while mastering complex financial technologies.',
+                color: 'green'
               },
               {
                 icon: FaUserShield,
-                title: 'Full Protective Gear',
-                description: 'Top-quality safety equipment ensuring worry-free smashing sessions for all participants.',
+                title: 'Real-World Projects',
+                description: 'Build payment systems, trading bots, and DeFi protocols that showcase your expertise to employers.',
                 color: 'purple'
               },
               {
                 icon: FaUserTie,
-                title: 'Expert Guidance',
-                description: 'Professional staff providing comprehensive support for safe and satisfying experiences.',
-                color: 'blue'
+                title: 'Expert Mentorship',
+                description: 'Learn from industry professionals with years of experience in fintech, blockchain, and financial engineering.',
+                color: 'orange'
               }
             ].map((feature, index) => (
               <motion.div
@@ -634,22 +634,22 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 whileHover={{ scale: 1.02, y: -8 }}
-                className="group bg-dark-800/50 p-8 rounded-2xl backdrop-blur-sm border border-dark-700/50 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/10 transition-all duration-500"
+                className="group bg-dark-800/50 p-8 rounded-2xl backdrop-blur-sm border border-dark-700/50 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-500"
               >
                 <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 ${
-                  feature.color === 'red' ? 'bg-red-500/10 group-hover:bg-red-500/20' :
-                  feature.color === 'orange' ? 'bg-orange-500/10 group-hover:bg-orange-500/20' :
+                  feature.color === 'blue' ? 'bg-blue-500/10 group-hover:bg-blue-500/20' :
+                  feature.color === 'green' ? 'bg-green-500/10 group-hover:bg-green-500/20' :
                   feature.color === 'purple' ? 'bg-purple-500/10 group-hover:bg-purple-500/20' :
-                  'bg-blue-500/10 group-hover:bg-blue-500/20'
+                  'bg-orange-500/10 group-hover:bg-orange-500/20'
                 }`}>
                   <feature.icon className={`w-8 h-8 transition-colors duration-300 ${
-                    feature.color === 'red' ? 'text-red-400 group-hover:text-red-300' :
-                    feature.color === 'orange' ? 'text-orange-400 group-hover:text-orange-300' :
+                    feature.color === 'blue' ? 'text-blue-400 group-hover:text-blue-300' :
+                    feature.color === 'green' ? 'text-green-400 group-hover:text-green-300' :
                     feature.color === 'purple' ? 'text-purple-400 group-hover:text-purple-300' :
-                    'text-blue-400 group-hover:text-blue-300'
+                    'text-orange-400 group-hover:text-orange-300'
                   }`} />
                 </div>
-                <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors duration-300">
+                <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
                   {feature.title}
                 </h3>
                 <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
@@ -671,17 +671,17 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text">
-              Choose Your Reality
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-green-400 to-purple-400 text-transparent bg-clip-text">
+              Choose Your Learning Path
             </h2>
             <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              Step into immersive themed environments where physics meets destruction. 
-              Three unique universes, each designed to obliterate stress through the power of science.
+              Master different aspects of financial technology through specialized learning tracks. 
+              Four comprehensive paths, each designed to build expertise in cutting-edge fintech domains.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-            {/* Theory of Relativity Room */}
+            {/* Digital Payments Track */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -693,37 +693,37 @@ export default function Home() {
                 <FaRocket className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors duration-300">
-                Theory of Relativity
+                Digital Payments
               </h3>
               <p className="text-blue-300 font-medium text-sm mb-4">
-                Time Dilates, Stress Accelerates Away
+                Master the Future of Money Movement
               </p>
               <p className="text-gray-300 leading-relaxed mb-6">
-                Step into Einstein's universe where the laws of physics bend to your will. 
-                Experience cosmic destruction with gravity-defying smash zones and time dilation effects.
+                Build real-world payment systems from APIs to mobile wallets. 
+                Learn Stripe, PayPal integration, cross-border payments, and fraud detection.
               </p>
               <div className="bg-black/30 p-4 rounded-xl mb-6 border border-blue-800/50">
                 <p className="text-gray-300 text-sm italic">
-                  E=mc² - Channel your energy into pure destructive force
+                  PV = PMT × [(1 - (1 + r)^-n) / r] - Time value of money in action
                 </p>
               </div>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-2xl font-bold text-white">₹3,500</p>
-                  <p className="text-gray-400 text-sm">45 minutes</p>
+                  <p className="text-2xl font-bold text-white">6-8 Weeks</p>
+                  <p className="text-gray-400 text-sm">Intermediate Level</p>
                 </div>
                 <motion.a
-                  href="/rooms/theory-of-relativity"
+                  href="/courses/digital-payments"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-800 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
                 >
-                  Enter Universe
+                  Start Track
                 </motion.a>
               </div>
             </motion.div>
 
-            {/* Quantum Theory Room */}
+            {/* Blockchain & DeFi Track */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -735,37 +735,37 @@ export default function Home() {
                 <FaAtom className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">
-                Quantum Theory
+                Blockchain & DeFi
               </h3>
               <p className="text-green-300 font-medium text-sm mb-4">
-                Uncertainty Principle: Destroy Everything
+                Decentralize Everything, Build the Future
               </p>
               <p className="text-gray-300 leading-relaxed mb-6">
-                Enter the quantum realm where possibilities are infinite and destruction is probable. 
-                Experience subatomic smashing with entanglement targets and probability waves.
+                Master smart contracts, DeFi protocols, and Web3 development. 
+                Build DEXs, lending platforms, and explore cryptocurrency trading strategies.
               </p>
               <div className="bg-black/30 p-4 rounded-xl mb-6 border border-green-800/50">
                 <p className="text-gray-300 text-sm italic">
-                  ΔE×Δt ≥ ℏ/2 - You can't know stress and relaxation simultaneously
+                  Hash(Block_n) = Previous_Hash + Merkle_Root + Nonce - Immutable ledger
                 </p>
               </div>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-2xl font-bold text-white">₹4,000</p>
-                  <p className="text-gray-400 text-sm">50 minutes</p>
+                  <p className="text-2xl font-bold text-white">8-10 Weeks</p>
+                  <p className="text-gray-400 text-sm">Advanced Level</p>
                 </div>
                 <motion.a
-                  href="/rooms/quantum-theory"
+                  href="/courses/blockchain-defi"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-700 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all duration-300"
                 >
-                  Enter Quantum
+                  Start Track
                 </motion.a>
               </div>
             </motion.div>
 
-            {/* Cyberpunk Dystopian Room */}
+            {/* AI/ML in Finance Track */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -773,36 +773,36 @@ export default function Home() {
               whileHover={{ scale: 1.02, y: -8 }}
               className="group bg-gradient-to-br from-pink-900/20 to-cyan-900/20 p-8 rounded-2xl backdrop-blur-sm border border-pink-700/30 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-500"
             >
-                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                 <FaMicrochip className="w-8 h-8 text-white" />
-               </div>
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FaMicrochip className="w-8 h-8 text-white" />
+              </div>
               <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-pink-400 transition-colors duration-300">
-                Cyberpunk Dystopian
+                AI/ML in Finance
               </h3>
               <p className="text-pink-300 font-medium text-sm mb-4">
-                Hack Reality, Smash the System
+                Predict Markets, Automate Decisions
               </p>
               <p className="text-gray-300 leading-relaxed mb-6">
-                Jack into a neon-soaked future where corporations rule and rebellion is the only escape. 
-                Break free from digital prisons with holographic displays and AR destruction.
+                Build algorithmic trading systems, robo-advisors, and fraud detection models. 
+                Master machine learning for credit scoring, risk assessment, and market prediction.
               </p>
               <div className="bg-black/30 p-4 rounded-xl mb-6 border border-pink-800/50">
                 <p className="text-gray-300 text-sm italic">
-                  I = V/R - Overcome the system's resistance with high-voltage destruction
+                  σ(z) = 1/(1 + e^(-z)) - Sigmoid function for financial predictions
                 </p>
               </div>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-2xl font-bold text-white">₹4,500</p>
-                  <p className="text-gray-400 text-sm">60 minutes</p>
+                  <p className="text-2xl font-bold text-white">8-12 Weeks</p>
+                  <p className="text-gray-400 text-sm">Advanced Level</p>
                 </div>
                 <motion.a
-                  href="/rooms/cyberpunk-dystopian"
+                  href="/courses/ai-ml-finance"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-6 py-3 bg-gradient-to-r from-pink-500 to-cyan-400 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all duration-300"
                 >
-                  Jack In
+                  Start Track
                 </motion.a>
               </div>
             </motion.div>
@@ -815,10 +815,10 @@ export default function Home() {
             className="text-center mt-16"
           >
             <Link
-              href="/rooms"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold rounded-lg hover:from-red-700 hover:to-orange-700 transition-all duration-300 group"
+              href="/courses"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-green-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-green-700 transition-all duration-300 group"
             >
-              <span>Explore All Realities</span>
+              <span>View All Courses</span>
               <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </motion.div>
