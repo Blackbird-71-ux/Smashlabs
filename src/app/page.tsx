@@ -453,10 +453,10 @@ export default function Home() {
               The Crackhead Version of RedBull
             </h2>
             <p className="text-lg text-gray-300 leading-relaxed mb-6 max-w-4xl mx-auto">
-              Red Bull gives you wings. SmashTech gives you skills. We're here for the ambitious professionals, the career-changers, and the innovators who operate at 110% and need fintech mastery that matches their intensity. We're not just an 'online course'; we are a platform that champions practical learning and career transformation.
+              Red Bull gives you wings. SmashTech gives you awareness. We're here for the curious minds who sense the financial revolution happening around them. While others sleep, blockchain rewrites money. While others scroll, AI trades millions. While others wonder, you'll understand. We're not selling you courses—we're opening your eyes to the future that's already here.
             </p>
             <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-4xl mx-auto">
-              We sponsor local bands, host underground art shows, and fuel the creative chaos that drives India forward. We are the rebellion against the mundane.
+              The banks you trust are becoming code. The money you earn is becoming data. The investments you make are becoming algorithms. This isn't tomorrow—this is today. And most people have no clue what's happening to their financial world. We're the rebellion against financial ignorance.
             </p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -469,7 +469,7 @@ export default function Home() {
                 onClick={() => scrollToSection('booknow')}
                 className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-bold shadow-lg hover:shadow-red-500/25 transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm"
               >
-                Book Your Experience
+                Wake Up to Reality
               </button>
             </motion.div>
           </motion.div>
@@ -501,8 +501,8 @@ export default function Home() {
                     <FaTools className="w-5 h-5 text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm mb-1">State-of-the-art Facilities</h3>
-                    <p className="text-gray-300 text-xs">Premium smash rooms designed for exhilarating experiences.</p>
+                    <h3 className="font-semibold text-white text-sm mb-1">Real-World Insights</h3>
+                    <p className="text-gray-300 text-xs">Live market data, actual blockchain transactions, real fintech disruptions happening now.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-dark-800/30 backdrop-blur-sm border border-dark-700/30 hover:border-green-500/30 transition-all duration-300">
@@ -510,8 +510,8 @@ export default function Home() {
                     <FaShieldAlt className="w-5 h-5 text-green-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm mb-1">Diverse Selection</h3>
-                    <p className="text-gray-300 text-xs">Wide variety of items to smash, from electronics to glass.</p>
+                    <h3 className="font-semibold text-white text-sm mb-1">No BS Learning</h3>
+                    <p className="text-gray-300 text-xs">Cut through the noise. Understand what actually matters in the financial tech revolution.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-dark-800/30 backdrop-blur-sm border border-dark-700/30 hover:border-purple-500/30 transition-all duration-300">
@@ -519,8 +519,8 @@ export default function Home() {
                     <FaUserTie className="w-5 h-5 text-purple-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm mb-1">Customizable Packages</h3>
-                    <p className="text-gray-300 text-xs">Tailored packages for individuals, groups, and corporates.</p>
+                    <h3 className="font-semibold text-white text-sm mb-1">Future-Proof Knowledge</h3>
+                    <p className="text-gray-300 text-xs">Understand trends before they become headlines. Adapt before you're forced to.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-dark-800/30 backdrop-blur-sm border border-dark-700/30 hover:border-orange-500/30 transition-all duration-300">
@@ -528,8 +528,8 @@ export default function Home() {
                     <FaCoffee className="w-5 h-5 text-orange-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm mb-1">Chill Zone</h3>
-                    <p className="text-gray-300 text-xs">Relax with refreshments in our serene environment.</p>
+                    <h3 className="font-semibold text-white text-sm mb-1">Community Awakening</h3>
+                    <p className="text-gray-300 text-xs">Connect with others who see the financial revolution happening. Share insights, not ignorance.</p>
                   </div>
                 </div>
               </div>
@@ -542,7 +542,7 @@ export default function Home() {
                 }}
                 className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors duration-200 border border-red-500 hover:border-red-600 uppercase tracking-wide"
               >
-                Book Experience
+                Start Understanding
               </motion.button>
             </motion.div>
             <motion.div
@@ -1081,7 +1081,7 @@ export default function Home() {
               SmashTech Learning Gallery
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Take a look at our state-of-the-art facilities and the exhilarating experiences we offer.
+              See the reality of fintech transformation happening around you. Real people, real technology, real change.
             </p>
           </motion.div>
 
@@ -1208,20 +1208,20 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
               {
-                question: 'What safety measures are in place?',
-                answer: 'We provide full protective gear and have trained staff supervising all sessions. Our rooms are specially designed for safe destruction.'
+                question: 'Why should I care about fintech if I\'m not in finance?',
+                answer: 'Because fintech IS finance now. Your bank uses AI to approve loans. Your investment app uses algorithms to suggest stocks. Your payment app uses blockchain protocols. Understanding this isn\'t optional anymore—it\'s financial literacy for the modern world.'
               },
               {
-                question: 'What items can I smash?',
-                answer: 'We offer a variety of items including electronics, glass, and furniture. All items are pre-approved for safe destruction.'
+                question: 'How is this different from other financial education?',
+                answer: 'We don\'t teach theory from textbooks. We show you what\'s happening RIGHT NOW. Live transactions, real market disruptions, actual technologies changing how money works. This is awareness, not academics.'
               },
               {
-                question: 'How long is each session?',
-                answer: 'Standard sessions are 30 minutes, with options for extended sessions. Corporate events can be customized to your needs.'
+                question: 'I\'m not technical. Can I understand this stuff?',
+                answer: 'You don\'t need to code to understand how code affects your money. We explain the impact, not the implementation. If you use a smartphone, you can grasp these concepts. The question is: do you want to stay informed or stay ignorant?'
               },
               {
-                question: 'Do I need to bring anything?',
-                answer: 'Just yourself and comfortable clothes. We provide all necessary safety equipment and tools.'
+                question: 'What if I just want to keep using traditional banking?',
+                answer: 'Traditional banking IS using this technology—they just don\'t tell you. Your "traditional" bank already uses AI, blockchain, and algorithms. The choice isn\'t between old and new. It\'s between understanding what\'s already happening or being clueless about your own financial life.'
               }
             ].map((faq, index) => (
               <motion.div
