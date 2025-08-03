@@ -32,33 +32,33 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://smashlabs.in'),
+  metadataBase: new URL('https://smashtech.edu'),
   title: {
-    default: "SmashLabs - Unleash Your Inner Beast. Smash Stress.",
-    template: "%s | SmashLabs",
+    default: "SmashTech - Master FinTech Like a Pro",
+    template: "%s | SmashTech",
   },
-  description: "Experience the ultimate stress relief and team building activity at SmashLabs. Break free from your worries and unleash your rage in a safe, exhilarating environment. Perfect for corporate events, team outings, and private parties.",
-  keywords: ["rage room", "stress relief", "team building", "corporate events", "smash room", "break room", "anger management", "fun activities", "group therapy", "smashing", "destruction", "stress management", "entertainment", "unique experience", "team bonding"],
-  authors: [{ name: "SmashLabs Team", url: "https://smashlabs.in" }],
-  creator: "SmashLabs Team",
-  publisher: "SmashLabs Inc.",
+  description: "Master FinTech with SmashTech's gamified learning platform. Learn blockchain, AI trading, digital payments, and DeFi through interactive courses and hands-on projects. Transform your career with real-world FinTech skills.",
+  keywords: ["fintech education", "blockchain learning", "digital payments", "defi courses", "cryptocurrency", "ai trading", "financial technology", "online learning", "career development", "hands-on projects", "interactive courses", "gamified learning", "fintech skills", "professional development", "tech education"],
+  authors: [{ name: "SmashTech Education Team", url: "https://smashtech.edu" }],
+  creator: "SmashTech Education Team",
+  publisher: "SmashTech Inc.",
   openGraph: {
-    title: "SmashLabs - Unleash Your Inner Beast. Smash Stress.",
-    description: "Experience the ultimate stress relief and team building activity at SmashLabs. Break free from your worries and unleash your rage in a safe, exhilarating environment.",
+    title: "SmashTech - Master FinTech Like a Pro",
+    description: "Master FinTech with SmashTech's gamified learning platform. Learn blockchain, AI trading, digital payments, and DeFi through interactive courses and hands-on projects.",
     url: "/",
-    siteName: "SmashLabs",
+    siteName: "SmashTech",
     images: [
       {
-        url: "/smashlabs-experience-room.png",
+        url: "/smashtech-learning-platform.png",
         width: 1200,
         height: 630,
-        alt: "SmashLabs Experience Room - Unleash Your Inner Beast",
+        alt: "SmashTech Learning Platform - Master FinTech Skills",
       },
       {
         url: "/logo.png",
         width: 500,
         height: 500,
-        alt: "SmashLabs Logo",
+        alt: "SmashTech Logo",
       },
     ],
     locale: "en_US",
@@ -66,10 +66,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SmashLabs - Unleash Your Inner Beast. Smash Stress.",
-    description: "Experience the ultimate stress relief and team building activity at SmashLabs.",
-    images: ["/smashlabs-experience-room.png"],
-    creator: "@smashlabs_hq",
+    title: "SmashTech - Master FinTech Like a Pro",
+    description: "Master FinTech with gamified learning. Learn blockchain, AI trading, and digital payments.",
+    images: ["/smashtech-learning-platform.png"],
+    creator: "@smashtech_edu",
   },
   robots: {
     index: true,
@@ -94,18 +94,18 @@ export const metadata: Metadata = {
 // Add structured data
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'SmashLabs Inc.',
-  description: 'SmashLabs offers a unique and exhilarating experience to smash and destroy objects in a safe environment, providing ultimate stress relief, fun team-building activities, and unforgettable corporate events.',
-  url: 'https://smashlabs.in',
-  logo: 'https://smashlabs.in/logo.png',
-  image: 'https://smashlabs.in/smashlabs-experience-room.png',
+  '@type': 'EducationalOrganization',
+  name: 'SmashTech Inc.',
+  description: 'SmashTech offers gamified FinTech education through interactive courses in blockchain, AI trading, digital payments, and DeFi. Transform your career with hands-on projects and real-world financial technology skills.',
+  url: 'https://smashtech.edu',
+  logo: 'https://smashtech.edu/logo.png',
+  image: 'https://smashtech.edu/smashtech-learning-platform.png',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '123 Catharsis Lane',
-    addressLocality: 'Rage City',
+    streetAddress: '456 Innovation Blvd',
+    addressLocality: 'San Francisco',
     addressRegion: 'CA',
-    postalCode: '90210',
+    postalCode: '94105',
     addressCountry: 'US',
   },
   geo: {
@@ -113,18 +113,15 @@ const jsonLd = {
     latitude: '34.052235',
     longitude: '-118.243683',
   },
-  telephone: '+1800SMASHNOW',
-  openingHours: [
-    'Mo,Tu,We,Th,Fr 10:00-22:00',
-    'Sa,Su 11:00-23:00'
-  ],
-  priceRange: '$$',
+  telephone: '+1800SMASHTECH',
+  operatingHours: '24/7 Online Learning Platform',
+  priceRange: '$',
   sameAs: [
-    'https://www.facebook.com/SmashLabsOfficial',
-    'https://www.instagram.com/smashlabs_official',
-    'https://twitter.com/smashlabs_hq',
-    'https://www.youtube.com/user/smashlabs-official',
-    'https://www.linkedin.com/company/smashlabx',
+    'https://www.facebook.com/smashtech.education',
+    'https://www.instagram.com/smashtech_edu',
+    'https://twitter.com/smashtech_edu',
+    'https://www.youtube.com/channel/smashtech-education',
+    'https://www.linkedin.com/company/smashtech-education',
   ],
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -133,7 +130,7 @@ const jsonLd = {
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'SmashLabs Packages',
+    name: 'SmashTech Learning Tracks',
     itemListElement: [
       {
         '@type': 'Offer',
