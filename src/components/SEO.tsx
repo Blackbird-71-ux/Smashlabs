@@ -15,41 +15,41 @@ interface SEOProps {
 }
 
 export default function SEO({
-  title = "SmashLabs - Ultimate Stress Relief & Rage Room Experience",
-  description = "Experience the ultimate stress relief at SmashLabs! Break, smash, and destroy in our safe rage rooms. Perfect for team building, corporate events, and personal stress relief. Book your smashing session today!",
+  title = "SmashTech - Gamified FinTech Education Platform",
+  description = "Master financial technology through SmashTech's gamified learning platform! Interactive courses in blockchain, AI/ML, digital payments, and DeFi. Build real-world projects and advance your fintech career today!",
   keywords = [
-    "rage room", "stress relief", "smash room", "break room", "anger management",
-    "team building", "corporate events", "stress management", "therapy",
-    "destruction therapy", "smashing experience", "mental health", "wellness",
-    "fun activities", "unique experience", "group therapy", "team bonding",
-    "entertainment", "recreational activity", "cathartic experience"
+    "fintech education", "blockchain course", "digital payments training", "AI ML finance", "cryptocurrency learning",
+    "financial technology", "career development", "professional training", "certification",
+    "gamified learning", "interactive education", "skill building", "career advancement",
+    "technology training", "practical projects", "hands-on learning", "industry skills",
+    "professional development", "online education", "fintech careers"
   ],
-  image = "/smashlabs-experience-room.png",
+  image = "/smashtech-learning-platform.png",
   url = "/",
   type = "website",
   publishedTime,
   modifiedTime,
-  author = "SmashLabs Team",
+  author = "SmashTech Education Team",
   section,
   tags = []
 }: SEOProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://smashlabs.in';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://smashtech.edu';
   const fullUrl = `${baseUrl}${url}`;
   const fullImageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "SmashLabs",
+    "name": "SmashTech",
     "description": description,
     "url": fullUrl,
     "logo": `${baseUrl}/logo.png`,
     "image": fullImageUrl,
     "telephone": "+1-800-SMASH-NOW",
-    "email": "info@smashlabs.in",
+          "email": "info@smashtech.edu",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "123 Stress Relief Lane",
+      "streetAddress": "123 FinTech Education Hub",
       "addressLocality": "Wellness City",
       "addressRegion": "CA",
       "postalCode": "90210",
@@ -72,14 +72,14 @@ export default function SEO({
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "SmashLabs Packages",
+      "name": "SmashTech Learning Tracks",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
             "name": "Basic Smash Package",
-            "description": "30-minute stress relief session with basic smashing items"
+            "description": "Foundation level fintech course with interactive lessons and projects"
           }
         },
         {
@@ -101,11 +101,11 @@ export default function SEO({
       ]
     },
     "sameAs": [
-      "https://www.facebook.com/SmashLabsOfficial",
-      "https://www.instagram.com/smashlabs_official", 
-      "https://twitter.com/smashlabs_hq",
-      "https://www.youtube.com/user/smashlabs-official",
-      "https://www.linkedin.com/company/smashlabs"
+              "https://www.facebook.com/SmashTechEducation",
+        "https://www.instagram.com/smashtech_edu",
+        "https://twitter.com/smashtech_edu",
+        "https://www.youtube.com/user/smashtech-education",
+        "https://www.linkedin.com/company/smashtech"
     ]
   };
 
@@ -127,9 +127,9 @@ export default function SEO({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={fullImageUrl} />
-      <meta property="og:image:alt" content="SmashLabs - Ultimate Stress Relief Experience" />
+      <meta property="og:image:alt" content="SmashTech - Gamified FinTech Education Platform" />
       <meta property="og:url" content={fullUrl} />
-      <meta property="og:site_name" content="SmashLabs" />
+      <meta property="og:site_name" content="SmashTech" />
       <meta property="og:locale" content="en_US" />
       
       {/* Article specific Open Graph tags */}
@@ -151,18 +151,18 @@ export default function SEO({
       
       {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@smashlabs_hq" />
-      <meta name="twitter:creator" content="@smashlabs_hq" />
+      <meta name="twitter:site" content="@smashtech_edu" />
+      <meta name="twitter:creator" content="@smashtech_edu" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullImageUrl} />
-      <meta name="twitter:image:alt" content="SmashLabs - Ultimate Stress Relief Experience" />
+      <meta name="twitter:image:alt" content="SmashTech - Gamified FinTech Education Platform" />
       
       {/* Additional Meta Tags for Better SEO */}
       <meta name="theme-color" content="#dc2626" />
       <meta name="msapplication-TileColor" content="#dc2626" />
-      <meta name="application-name" content="SmashLabs" />
-      <meta name="apple-mobile-web-app-title" content="SmashLabs" />
+      <meta name="application-name" content="SmashTech" />
+      <meta name="apple-mobile-web-app-title" content="SmashTech" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       

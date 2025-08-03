@@ -8,7 +8,7 @@ export default function Footer() {
 
   const footerLinks = {
     company: [
-      { label: 'About SmashLabs', href: '#experience' },
+              { label: 'About SmashTech', href: '#features' },
       { label: 'Our Approach', href: '#why-choose' },
       { label: 'Smash Packages', href: '#packages' },
       { label: 'Customer Stories', href: '#testimonials' },
@@ -20,9 +20,9 @@ export default function Footer() {
       { label: 'Terms of Service', href: '/terms-of-service' },
     ],
     social: [
-      { label: 'Facebook', href: 'https://facebook.com/smashlabs.official', icon: 'facebook' },
+              { label: 'Facebook', href: 'https://facebook.com/smashtech.education', icon: 'facebook' },
       { label: 'Instagram', href: 'https://www.instagram.com/smashlab_x?igsh=MTNnZmRydm13ZnU2eg%3D%3D&utm_source=qr', icon: 'instagram' },
-      { label: 'Twitter', href: 'https://twitter.com/smashlabs_hq', icon: 'twitter' },
+              { label: 'Twitter', href: 'https://twitter.com/smashtech_edu', icon: 'twitter' },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/company/smashlabx', icon: 'linkedin' },
     ],
   };
@@ -56,19 +56,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center space-x-3 group" aria-label="SmashLabs Home" rel="noopener noreferrer">
+            <Link href="/" className="flex items-center space-x-3 group" aria-label="SmashTech Home" rel="noopener noreferrer">
               <Image
                 src="/logo.png"
-                alt="SmashLabs Logo"
+                alt="SmashTech Logo"
                 width={48}
                 height={48}
                 className="transition-transform duration-300 group-hover:scale-110"
                 loading="lazy"
               />
-              <span className="text-3xl font-extrabold tracking-tight text-red-500 group-hover:text-white transition-colors">SMASHLABS</span>
+              <span className="text-3xl font-extrabold tracking-tight text-blue-500 group-hover:text-white transition-colors">SMASHTECH</span>
             </Link>
             <p className="text-gray-400 leading-relaxed">
-              Experience the ultimate stress relief and team building activity at SmashLabs. Unleash your inner beast!
+              Master the future of finance and technology with SmashTech. Gamified learning for ambitious professionals!
             </p>
             <div className="flex space-x-4">
               {footerLinks.social.map((link) => {
@@ -142,7 +142,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-dark-800 mt-12 pt-8 text-center text-gray-500 text-sm">
-          <p>&copy; {currentYear} SmashLabs Inc. All rights reserved.</p>
+          <p>&copy; {currentYear} SmashTech Inc. All rights reserved.</p>
           <p className="mt-2">Built with passion and a lot of smashing.</p>
         </div>
       </div>

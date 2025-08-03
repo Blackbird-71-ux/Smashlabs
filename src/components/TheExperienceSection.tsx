@@ -5,13 +5,13 @@ export default function TheExperienceSection() {
   return (
     <section className="py-16 bg-black text-white">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold text-white mb-12">The SmashLabs Experience</h2>
+        <h2 className="text-4xl font-bold text-white mb-12">The SmashTech Experience</h2>
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12">
           {/* Image Column */}
           <div className="lg:w-1/2 flex justify-center">
             <Image 
-              src="/smashlabs-experience-room.png" 
-              alt="SmashLabs Experience Room" 
+                      src="/smashtech-learning-platform.png"
+        alt="SmashTech Learning Platform" 
               width={500} 
               height={500} 
               className="rounded-lg shadow-xl"
@@ -29,7 +29,7 @@ export default function TheExperienceSection() {
                   What to Expect
                 </h3>
                 <p className="text-gray-300">
-                  A guided journey through our state-of-the-art facility, designed specifically for corporate stress relief and team building.
+                  A guided journey through our gamified learning platform, designed specifically for career advancement and skill mastery.
                 </p>
               </div>
 
@@ -65,7 +65,7 @@ export default function TheExperienceSection() {
                   Therapeutic Benefits
                 </h3>
                 <p className="text-gray-300">
-                  Experience immediate stress relief and long-term wellness improvements.
+                  Experience immediate skill gains and long-term career advancement.
                 </p>
               </div>
 
@@ -85,7 +85,7 @@ export default function TheExperienceSection() {
                   Team Challenges
                 </h3>
                 <p className="text-gray-300 leading-relaxed">
-                  Participate in group activities that build trust and communication while providing stress relief.
+                  Participate in collaborative projects that build professional networks and technical expertise while advancing careers.
                 </p>
               </div>
 

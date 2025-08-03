@@ -150,7 +150,7 @@ export default function Home() {
       });
       
       console.log('✅ Booking API response:', response);
-      success('🎉 Booking Confirmed!', `Your smash session is booked! Booking ID: ${response.data?.bookingId || 'SMASH-' + Date.now()}. Check your email for confirmation details. Get ready to unleash your stress!`);
+      success('🎉 Course Enrollment Confirmed!', `Your learning journey begins! Enrollment ID: ${response.data?.bookingId || 'SMASHTECH-' + Date.now()}. Check your email for course access details. Get ready to master fintech!`);
     } catch (error) {
       console.error('❌ Booking submission error:', error);
       console.error('Error details:', error instanceof Error ? error.message : 'Unknown error');
@@ -169,7 +169,7 @@ export default function Home() {
       } else {
         // For now, show success even if API fails (since backend might not be fully connected)
         console.log('🔄 API failed, showing fallback success message');
-        success('🎉 Booking Received!', `Your booking request has been received! We'll contact you shortly to confirm your smash session. Get ready to unleash your stress!`);
+        success('🎉 Enrollment Request Received!', `Your course enrollment request has been received! We'll contact you shortly to confirm your learning track access. Get ready to master fintech!`);
         
         // Reset form even on API failure
         const today = new Date().toISOString().split('T')[0];
@@ -453,7 +453,7 @@ export default function Home() {
               The Crackhead Version of RedBull
             </h2>
             <p className="text-lg text-gray-300 leading-relaxed mb-6 max-w-4xl mx-auto">
-              Red Bull gives you wings. SmashLabs gives you guts. We're here for the high-achievers, the risk-takers, and the game-changers who operate at 110% and need a release valve that matches their intensity. We're not just a 'rage room'; we are a brand that champions radical self-care and cathartic release.
+              Red Bull gives you wings. SmashTech gives you skills. We're here for the ambitious professionals, the career-changers, and the innovators who operate at 110% and need fintech mastery that matches their intensity. We're not just an 'online course'; we are a platform that champions practical learning and career transformation.
             </p>
             <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-4xl mx-auto">
               We sponsor local bands, host underground art shows, and fuel the creative chaos that drives India forward. We are the rebellion against the mundane.
@@ -489,10 +489,10 @@ export default function Home() {
             >
               <div className="max-w-2xl">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-red-500 leading-tight">
-                  The SmashLabs Experience
+                  The SmashTech Experience
                 </h2>
                 <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-                  At SmashLabs, we don't just offer a service; we offer a transformation. Step into our world of controlled chaos, where every swing, every shatter, and every crash is a step towards liberation.
+                  At SmashTech, we don't just offer courses; we offer transformation. Step into our world of gamified learning, where every lesson, every project, and every milestone is a step towards financial technology mastery.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
@@ -558,8 +558,8 @@ export default function Home() {
                   className="relative w-full h-full"
                 >
                   <Image
-                    src="/smashlabs-experience-room.png"
-                    alt="SmashLabs Experience Room - State-of-the-art Rage Room Facility"
+                                    src="/smashtech-learning-platform.png"
+                alt="SmashTech Learning Platform - Interactive FinTech Education"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -1045,7 +1045,7 @@ export default function Home() {
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                href="https://twitter.com/smashlabs_hq"
+                href="https://twitter.com/smashtech_edu"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full bg-dark-800 flex items-center justify-center text-white hover:bg-blue-400 transition-colors"
@@ -1055,7 +1055,7 @@ export default function Home() {
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                href="https://facebook.com/smashlabs.official"
+                href="https://facebook.com/smashtech.education"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full bg-dark-800 flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
@@ -1078,7 +1078,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-red-500">
-              SmashLabs Gallery
+              SmashTech Learning Gallery
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               Take a look at our state-of-the-art facilities and the exhilarating experiences we offer.
@@ -1097,7 +1097,7 @@ export default function Home() {
               >
                                   <Image
                     src="/images/gallery-1.jpg.png"
-                    alt="SmashLabs Gallery Image 1"
+                    alt="SmashTech Student Success - Interactive Learning"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -1115,7 +1115,7 @@ export default function Home() {
               >
                                   <Image
                     src="/images/gallery-2.jpg.png"
-                    alt="SmashLabs Gallery Image 2"
+                    alt="SmashTech Blockchain Lab - Hands-on Development"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -1133,7 +1133,7 @@ export default function Home() {
               >
                                   <Image
                     src="/images/gallery-3.jpg.png"
-                    alt="SmashLabs Gallery Image 3"
+                    alt="SmashTech AI/ML Training - Real-world Projects"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -1155,7 +1155,7 @@ export default function Home() {
                 >
                                       <Image
                       src="/images/gallery-4.jpg.png"
-                      alt="SmashLabs Gallery Image 4"
+                      alt="SmashTech Digital Payments Workshop"
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -1173,7 +1173,7 @@ export default function Home() {
                 >
                                       <Image
                       src="/images/gallery-5.jpg.png"
-                      alt="SmashLabs Gallery Image 5"
+                      alt="SmashTech Student Community - Collaborative Learning"
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -1201,7 +1201,7 @@ export default function Home() {
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Everything you need to know about your SmashLabs experience.
+              Everything you need to know about your SmashTech learning journey.
             </p>
           </motion.div>
 
