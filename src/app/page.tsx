@@ -438,38 +438,95 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RedBull of India Section */}
-      <section id="lifestyle" className="section bg-black/30 backdrop-blur-sm py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-noise-pattern opacity-10" />
+      {/* Financial Awareness Section */}
+      <section id="financial-awareness" className="section bg-gradient-to-r from-blue-900/20 to-purple-900/20 backdrop-blur-sm py-24 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-noise-pattern opacity-5" />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-5xl mx-auto"
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-red-500">
-              The Crackhead Version of RedBull
-            </h2>
-            <p className="text-lg text-gray-300 leading-relaxed mb-6 max-w-4xl mx-auto">
-              Red Bull gives you wings. SmashTech gives you awareness. We're here for the curious minds who sense the financial revolution happening around them. While others sleep, blockchain rewrites money. While others scroll, AI trades millions. While others wonder, you'll understand. We're not selling you courses—we're opening your eyes to the future that's already here.
-            </p>
-            <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-4xl mx-auto">
-              The banks you trust are becoming code. The money you earn is becoming data. The investments you make are becoming algorithms. This isn't tomorrow—this is today. And most people have no clue what's happening to their financial world. We're the rebellion against financial ignorance.
-            </p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.8 }}
+              className="mb-8"
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Financial Evolution in Real-Time
+              </h2>
+            </motion.div>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              {[
+                {
+                  icon: "🏦",
+                  title: "Traditional Banking",
+                  description: "Your bank operates 9-5. DeFi never sleeps. While you wait in line, smart contracts execute millions of transactions.",
+                  gradient: "from-red-500/20 to-orange-500/20"
+                },
+                {
+                  icon: "🤖",
+                  title: "AI-Powered Finance",
+                  description: "Algorithms are making investment decisions faster than human thought. Learn the systems before they outpace you.",
+                  gradient: "from-blue-500/20 to-cyan-500/20"
+                },
+                {
+                  icon: "⚡",
+                  title: "Instant Everything",
+                  description: "Payments in milliseconds. Trading at light speed. The future of money moves at the speed of code.",
+                  gradient: "from-purple-500/20 to-pink-500/20"
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  className={`p-6 rounded-xl bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300`}
+                >
+                  <div className="text-4xl mb-4">{item.icon}</div>
+                  <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded-2xl p-8 mb-8"
+            >
+              <p className="text-lg text-gray-300 leading-relaxed mb-6">
+                <span className="text-blue-400 font-semibold">The Revolution Is Concurrent:</span> While you're reading this, blockchain networks are processing thousands of transactions. While you sleep, AI systems are optimizing portfolios. While you wonder about the future, it's already being built.
+              </p>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                SmashTech doesn't just teach you about FinTech—we synchronize you with the real-time financial evolution happening right now.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 1 }}
               className="mt-12"
             >
               <button
                 onClick={() => scrollToSection('booknow')}
-                className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-bold shadow-lg hover:shadow-red-500/25 transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-bold shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 border border-white/20 backdrop-blur-sm"
               >
-                Wake Up to Reality
+                Sync with the Future
               </button>
             </motion.div>
           </motion.div>
@@ -552,19 +609,78 @@ export default function Home() {
               className="flex-1 flex items-center justify-center"
             >
               <div className="relative w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden group shadow-2xl">
+                {/* Interactive FinTech Dashboard Visualization */}
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="relative w-full h-full"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="relative w-full h-full bg-gradient-to-br from-gray-900 to-black border border-white/20 rounded-2xl overflow-hidden"
                 >
-                  <Image
-                                    src="/smashtech-learning-platform.png"
-                alt="SmashTech Learning Platform - Interactive FinTech Education"
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority
-                  />
+                  {/* Animated Dashboard Background */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
+                  
+                  {/* Floating Data Visualization */}
+                  <div className="absolute inset-4 grid grid-cols-2 gap-4">
+                    {/* Chart Cards */}
+                    {[
+                      { title: "Portfolio", value: "$124.5K", change: "+12.4%", color: "text-green-400" },
+                      { title: "DeFi Yield", value: "8.7%", change: "+0.3%", color: "text-blue-400" },
+                      { title: "Trading Volume", value: "$2.1M", change: "+45.2%", color: "text-purple-400" },
+                      { title: "NFT Holdings", value: "23", change: "+5", color: "text-orange-400" }
+                    ].map((item, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        whileHover={{ scale: 1.05 }}
+                        className="bg-black/50 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:border-white/30 transition-all duration-300"
+                      >
+                        <div className="text-xs text-gray-400 mb-1">{item.title}</div>
+                        <div className="text-sm font-bold text-white mb-1">{item.value}</div>
+                        <div className={`text-xs ${item.color}`}>{item.change}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Animated Network Connections */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {[...Array(8)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0 }}
+                        animate={{ 
+                          opacity: [0, 0.6, 0],
+                          scale: [0.8, 1.2, 0.8]
+                        }}
+                        transition={{
+                          duration: 3,
+                          delay: i * 0.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className={`absolute w-2 h-2 bg-blue-400 rounded-full`}
+                        style={{
+                          left: `${20 + (i * 10)}%`,
+                          top: `${30 + (i * 5)}%`,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Status Indicator */}
+                  <div className="absolute top-4 right-4 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    <span className="text-xs text-green-400 font-medium">LIVE</span>
+                  </div>
+
+                  {/* Bottom Label */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="bg-black/70 backdrop-blur-sm border border-white/20 rounded-lg p-2 text-center">
+                      <div className="text-xs text-gray-300">SmashTech Learning Dashboard</div>
+                      <div className="text-xs text-blue-400">Real-time FinTech Experience</div>
+                    </div>
+                  </div>
                 </motion.div>
               </div>
             </motion.div>
@@ -1067,9 +1183,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Enhanced Gallery Section */}
-      <section id="gallery" className="py-24 bg-gradient-to-b from-dark-900 to-dark-950 relative overflow-hidden" suppressHydrationWarning={true}>
+      {/* FinTech Innovation Showcase */}
+      <section id="innovation" className="py-24 bg-gradient-to-b from-dark-900 to-dark-950 relative overflow-hidden" suppressHydrationWarning={true}>
         <div className="absolute inset-0 bg-noise opacity-5" />
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/5 rounded-full blur-xl animate-pulse delay-2000" />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1077,113 +1199,123 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-red-500">
-              SmashTech Learning Gallery
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              FinTech Innovation Hub
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              See the reality of fintech transformation happening around you. Real people, real technology, real change.
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+              Experience the cutting-edge technologies that are reshaping finance. From blockchain to AI, see how innovation happens in real-time.
             </p>
           </motion.div>
 
-          <div className="space-y-8">
-            {/* First row - 3 images */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Innovation Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                title: "Blockchain Networks",
+                description: "Real-time transaction processing across multiple blockchain protocols",
+                icon: "⛓️",
+                metric: "1.2M+ TPS",
+                gradient: "from-purple-600/30 to-blue-600/30",
+                delay: 0
+              },
+              {
+                title: "AI Trading Systems",
+                description: "Machine learning algorithms executing trades 24/7 across global markets",
+                icon: "🤖",
+                metric: "$2.3B Daily Volume",
+                gradient: "from-blue-600/30 to-cyan-600/30",
+                delay: 0.1
+              },
+              {
+                title: "Digital Payment Networks",
+                description: "Instant payment processing connecting millions of users worldwide",
+                icon: "💳",
+                metric: "50M+ Transactions",
+                gradient: "from-cyan-600/30 to-green-600/30",
+                delay: 0.2
+              },
+              {
+                title: "DeFi Protocols",
+                description: "Decentralized finance protocols enabling permissionless financial services",
+                icon: "🏛️",
+                metric: "$45B+ TVL",
+                gradient: "from-green-600/30 to-emerald-600/30",
+                delay: 0.3
+              },
+              {
+                title: "Quantum Encryption",
+                description: "Next-generation security protocols protecting financial data",
+                icon: "🔐",
+                metric: "256-bit Security",
+                gradient: "from-purple-600/30 to-pink-600/30",
+                delay: 0.4
+              },
+              {
+                title: "Central Bank Digital Currencies",
+                description: "Government-backed digital currencies reshaping monetary policy",
+                icon: "🏦",
+                metric: "120+ Countries",
+                gradient: "from-orange-600/30 to-red-600/30",
+                delay: 0.5
+              }
+            ].map((innovation, index) => (
               <motion.div
+                key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0 }}
-                whileHover={{ scale: 1.02 }}
-                className="relative aspect-square rounded-xl overflow-hidden group"
+                transition={{ duration: 0.5, delay: innovation.delay }}
+                whileHover={{ scale: 1.05, y: -10 }}
+                className={`relative p-8 rounded-xl bg-gradient-to-br ${innovation.gradient} backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 group overflow-hidden`}
               >
-                                  <Image
-                    src="/images/gallery-1.jpg.png"
-                    alt="SmashTech Student Success - Interactive Learning"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {/* Animated background effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative z-10">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ duration: 0.5, delay: innovation.delay + 0.2 }}
+                    className="text-5xl mb-6"
+                  >
+                    {innovation.icon}
+                  </motion.div>
+                  
+                  <h3 className="text-xl font-bold mb-3 text-white">{innovation.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed mb-4">{innovation.description}</p>
+                  
+                  <div className="mt-6 pt-4 border-t border-white/20">
+                    <div className="text-2xl font-bold text-white mb-1">{innovation.metric}</div>
+                    <div className="text-xs text-gray-400 uppercase tracking-wider">Live Metrics</div>
                   </div>
+                </div>
+
+                {/* Pulse animation for active status */}
+                <div className="absolute top-4 right-4">
+                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+                </div>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                className="relative aspect-square rounded-xl overflow-hidden group"
-              >
-                                  <Image
-                    src="/images/gallery-2.jpg.png"
-                    alt="SmashTech Blockchain Lab - Hands-on Development"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                whileHover={{ scale: 1.02 }}
-                className="relative aspect-square rounded-xl overflow-hidden group"
-              >
-                                  <Image
-                    src="/images/gallery-3.jpg.png"
-                    alt="SmashTech AI/ML Training - Real-world Projects"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  </div>
-              </motion.div>
-            </div>
-
-            {/* Second row - 2 images centered */}
-            <div className="flex justify-center">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl w-full">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  whileHover={{ scale: 1.02 }}
-                  className="relative aspect-square rounded-xl overflow-hidden group"
-                >
-                                      <Image
-                      src="/images/gallery-4.jpg.png"
-                      alt="SmashTech Digital Payments Workshop"
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  whileHover={{ scale: 1.02 }}
-                  className="relative aspect-square rounded-xl overflow-hidden group"
-                >
-                                      <Image
-                      src="/images/gallery-5.jpg.png"
-                      alt="SmashTech Student Community - Collaborative Learning"
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                </motion.div>
-              </div>
-            </div>
+            ))}
           </div>
+
+          {/* Real-time Status Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="text-center bg-black/40 backdrop-blur-sm border border-green-500/30 rounded-xl p-6"
+          >
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-green-400 font-semibold">LIVE STATUS</span>
+              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+            </div>
+            <p className="text-gray-300 text-lg">
+              All systems operational • Real-time financial innovation happening now
+            </p>
+            <p className="text-gray-400 text-sm mt-2">
+              Last updated: {new Date().toLocaleTimeString()}
+            </p>
+          </motion.div>
         </div>
       </section>
 
