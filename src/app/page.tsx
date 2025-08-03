@@ -411,10 +411,10 @@ export default function Home() {
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {[
-              { value: customers.toLocaleString() + '+', label: 'Happy Customers', icon: FaUsers },
-              { value: satisfaction + '%', label: 'Satisfaction Rate', icon: FaStar },
-              { value: events.toLocaleString() + '+', label: 'Corporate Events', icon: FaCalendarAlt },
-              { value: '24/7', label: 'Adrenaline Rush', icon: FaClock }
+              { value: '2.5K+', label: 'Active Learners', icon: FaUsers },
+              { value: '97%', label: 'Course Completion', icon: FaStar },
+              { value: '150+', label: 'FinTech Modules', icon: FaCalendarAlt },
+              { value: '24/7', label: 'Market Updates', icon: FaClock }
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -427,7 +427,7 @@ export default function Home() {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                  className="text-4xl md:text-5xl font-bold text-red-500 mb-2"
+                  className="text-4xl md:text-5xl font-bold text-blue-500 mb-2"
                 >
                   {stat.value}
                 </motion.div>
@@ -977,7 +977,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Enterprise Training Card */}
+            {/* Community Learning Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -987,20 +987,20 @@ export default function Home() {
             >
               <div className="text-center">
                 <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaBriefcase className="w-8 h-8 text-purple-400" />
+                  <FaUsers className="w-8 h-8 text-purple-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Enterprise Training</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">Community Learning</h3>
                 <p className="text-gray-300 mb-6">
-                  Transform your team's fintech skills with custom corporate training programs and certification paths!
+                  Join a network of ambitious learners mastering FinTech together. Share insights, collaborate on projects, and grow your career!
                 </p>
                 <motion.a
-                  href="/enterprise"
+                  href="/register"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
                   className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 border border-purple-500 hover:border-purple-600 hover:shadow-lg hover:shadow-purple-500/25 uppercase tracking-wide inline-block"
                 >
-                  Get Enterprise Quote
+                  Join Community
                 </motion.a>
               </div>
             </motion.div>
