@@ -32,7 +32,7 @@ export default function BookingPage() {
               <span className="sm:inline"> Session</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4">
-              Ready to unleash your stress? Book your session now and experience the ultimate stress relief!
+              Ready to master fintech? Enroll in your learning track now and experience career transformation!
             </p>
           </motion.div>
         </div>
@@ -49,7 +49,7 @@ export default function BookingPage() {
           <div className="text-center mb-8">
             <div className="text-5xl mb-4">💥</div>
             <h2 className="text-3xl font-bold text-white mb-4">
-              Book Your <span className="text-red-500">Smash</span> Session
+              Enroll in <span className="text-blue-500">FinTech</span> Course
             </h2>
             <p className="text-gray-300 mb-6">
               Ready to unleash your stress? Fill out the form below and we'll confirm your booking!

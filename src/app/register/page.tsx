@@ -31,7 +31,7 @@ export default function RegisterPage() {
   const [submitMessage, setSubmitMessage] = useState('');
 
   const interestOptions = [
-    'Stress Relief',
+            'FinTech Career Growth',
     'Team Building',
     'Corporate Events',
     'Birthday Parties',
@@ -153,7 +153,7 @@ export default function RegisterPage() {
 
       if (result.success) {
         const registrationId = result.data?.registrationId || 'Unknown';
-        showSuccess(`🎉 Registration Successful! Welcome to SmashLabs Community! Your registration ID is: ${registrationId}`);
+        showSuccess(`🎉 Registration Successful! Welcome to SmashTech Community! Your registration ID is: ${registrationId}`);
         
         // Reset form
         setFormData({
@@ -201,7 +201,7 @@ export default function RegisterPage() {
             className="text-center"
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
-              Join the <span className="text-red-500">SmashLabs</span>
+              Join the <span className="text-blue-500">SmashTech</span>
               <br className="hidden sm:block" />
               <span className="block sm:inline"> Community</span>
             </h1>
@@ -279,7 +279,7 @@ export default function RegisterPage() {
             {/* Interests */}
             <div>
               <label className="block text-white font-medium mb-4">
-                What interests you about SmashLabs? *
+                What interests you about SmashTech? *
               </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {interestOptions.map((interest) => (
@@ -303,7 +303,7 @@ export default function RegisterPage() {
             {/* How did you hear about us */}
             <div>
               <label className="block text-white font-medium mb-2">
-                How did you hear about SmashLabs? *
+                How did you hear about SmashTech? *
               </label>
               <select
                 name="hearAbout"
@@ -350,7 +350,7 @@ export default function RegisterPage() {
                     Registering...
                   </div>
                 ) : (
-                  'Join SmashLabs Community 🚀'
+                  'Join SmashTech Community 🚀'
                 )}
               </button>
             </div>

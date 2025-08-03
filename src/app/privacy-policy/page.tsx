@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
 
             <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
             <p className="text-gray-300 mb-6">
-              SmashLabs ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. 
+              SmashTech ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. 
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our 
               website, use our services, or engage with us in any way.
             </p>

@@ -49,15 +49,15 @@ export default function TermsOfServicePage() {
 
             <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
             <p className="text-gray-300 mb-6">
-              By accessing and using SmashLabs services, including our website, facilities, and any related services 
+              By accessing and using SmashTech services, including our website, platform, and any related services 
               (collectively, the "Services"), you accept and agree to be bound by the terms and provision of this agreement.
             </p>
 
             <h2 className="text-2xl font-bold text-white mb-4">2. Description of Services</h2>
             <p className="text-gray-300 mb-6">
-              SmashLabs provides recreational stress relief activities, including but not limited to destruction therapy, 
-              rage room experiences, team building activities, and corporate wellness programs. Our services are designed 
-              for entertainment, stress relief, and team building purposes.
+                  SmashTech provides educational fintech learning services, including but not limited to interactive courses,
+    gamified learning experiences, career development programs, and professional certification tracks. Our services are designed
+    for education, skill development, and career advancement purposes.
             </p>
 
             <h2 className="text-2xl font-bold text-white mb-4">3. Age Requirements and Restrictions</h2>
@@ -107,14 +107,14 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-bold text-white mb-4">6. Liability and Risk Assumption</h2>
             <h3 className="text-xl font-semibold text-white mb-3">6.1 Assumption of Risk</h3>
             <p className="text-gray-300 mb-4">
-              By participating in SmashLabs activities, you acknowledge and accept that these activities involve inherent 
+              By participating in SmashTech learning programs, you acknowledge and accept that these programs involve inherent 
               risks, including but not limited to physical injury, property damage, and emotional distress. You voluntarily 
               assume all such risks.
             </p>
 
             <h3 className="text-xl font-semibold text-white mb-3">6.2 Limitation of Liability</h3>
             <p className="text-gray-300 mb-6">
-              To the maximum extent permitted by law, SmashLabs, its owners, employees, and affiliates shall not be liable 
+              To the maximum extent permitted by law, SmashTech, its owners, employees, and affiliates shall not be liable 
               for any direct, indirect, incidental, special, or consequential damages arising from your use of our services, 
               except in cases of gross negligence or willful misconduct.
             </p>
@@ -130,13 +130,13 @@ export default function TermsOfServicePage() {
             <h2 className="text-2xl font-bold text-white mb-4">8. Photography and Media</h2>
             <p className="text-gray-300 mb-6">
               By participating in our activities, you consent to being photographed or recorded for promotional purposes. 
-              You grant SmashLabs the right to use your likeness in marketing materials unless you specifically opt out 
+              You grant SmashTech the right to use your likeness in marketing materials unless you specifically opt out 
               in writing.
             </p>
 
             <h2 className="text-2xl font-bold text-white mb-4">9. Intellectual Property</h2>
             <p className="text-gray-300 mb-6">
-              All content, trademarks, logos, and intellectual property associated with SmashLabs are owned by us or our 
+              All content, trademarks, logos, and intellectual property associated with SmashTech are owned by us or our 
               licensors. You may not use, reproduce, or distribute any of our intellectual property without written permission.
             </p>
 
@@ -148,13 +148,13 @@ export default function TermsOfServicePage() {
 
             <h2 className="text-2xl font-bold text-white mb-4">11. Indemnification</h2>
             <p className="text-gray-300 mb-6">
-              You agree to indemnify and hold harmless SmashLabs from any claims, damages, losses, or expenses arising 
+              You agree to indemnify and hold harmless SmashTech from any claims, damages, losses, or expenses arising 
               from your use of our services, violation of these terms, or violation of any rights of another party.
             </p>
 
             <h2 className="text-2xl font-bold text-white mb-4">12. Force Majeure</h2>
             <p className="text-gray-300 mb-6">
-              SmashLabs is not liable for any failure or delay in performance due to circumstances beyond our reasonable 
+              SmashTech is not liable for any failure or delay in performance due to circumstances beyond our reasonable 
               control, including natural disasters, government actions, pandemics, or other unforeseen events.
             </p>
 
