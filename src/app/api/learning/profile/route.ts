@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { connectDB } from '@/lib/mongodb'
-import LearningProfile from '../../../../../models/LearningProfile'
-import User from '../../../../../models/User'
+const LearningProfile = require('../../../../../models/LearningProfile')
+const User = require('../../../../../models/User')
 
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || !session.user?.id) {
+    if (!session || !session.user?.email) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -18,13 +18,22 @@ export async function GET(request: NextRequest) {
 
     await connectDB()
 
+    // Find user by email first
+    const user = await User.findOne({ email: session.user.email })
+    if (!user) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      )
+    }
+
     // Find or create learning profile
-    let profile = await LearningProfile.findOne({ userId: session.user.id })
+    let profile = await LearningProfile.findOne({ userId: user._id })
     
     if (!profile) {
       // Create default profile if doesn't exist
       profile = new LearningProfile({
-        userId: session.user.id,
+        userId: user._id,
         level: 1,
         xp: 0,
         learningPath: 'finance-first',
@@ -75,7 +84,7 @@ export async function PUT(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session || !session.user?.id) {
+    if (!session || !session.user?.email) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -86,8 +95,17 @@ export async function PUT(request: NextRequest) {
     
     await connectDB()
 
+    // Find user by email first
+    const user = await User.findOne({ email: session.user.email })
+    if (!user) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      )
+    }
+
     const profile = await LearningProfile.findOneAndUpdate(
-      { userId: session.user.id },
+      { userId: user._id },
       updates,
       { new: true, runValidators: true }
     )

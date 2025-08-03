@@ -206,7 +206,7 @@ export default function CompletionCelebration({
                 : "🎯 Another step closer to FinTech mastery! Keep building your knowledge."
               }
             </p>
-          </div>
+          </motion.div>
 
           {/* Action Buttons */}
           <motion.div

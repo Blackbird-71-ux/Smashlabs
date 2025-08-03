@@ -2,7 +2,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import { connectDB } from './mongodb'
-import User from '../../models/User'
+const User = require('../../models/User')
 
 export const authOptions = {
   providers: [
@@ -27,7 +27,7 @@ export const authOptions = {
 
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
-          user.password
+          user.password as string
         )
 
         if (!isPasswordValid) {
@@ -36,36 +36,14 @@ export const authOptions = {
 
         return {
           id: user._id.toString(),
-          email: user.email,
-          name: user.name,
-          level: user.level || 1,
-          xp: user.xp || 0,
-          learningPath: user.learningPath || 'beginner'
+          email: user.email as string,
+          name: user.name as string
         }
       }
     })
   ],
   session: {
     strategy: 'jwt' as const,
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.level = user.level
-        token.xp = user.xp
-        token.learningPath = user.learningPath
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.sub as string
-        session.user.level = token.level as number
-        session.user.xp = token.xp as number
-        session.user.learningPath = token.learningPath as string
-      }
-      return session
-    }
   },
   pages: {
     signIn: '/auth/signin',

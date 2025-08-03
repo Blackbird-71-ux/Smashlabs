@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { connectDB } from '@/lib/mongodb'
-import User from '../../../../../models/User'
-import LearningProfile from '../../../../../models/LearningProfile'
+const User = require('../../../../../models/User')
+const LearningProfile = require('../../../../../models/LearningProfile')
 
 export async function POST(request: NextRequest) {
   try {

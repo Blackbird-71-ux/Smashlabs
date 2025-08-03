@@ -46,7 +46,7 @@ export default function ProgressTracker({
   useEffect(() => {
     // Update progress in backend
     updateProgress()
-  }, [progress, moduleId, lessonId])
+  }, [progress, moduleId, lessonId, timeSpent])
 
   const fetchStats = async () => {
     try {

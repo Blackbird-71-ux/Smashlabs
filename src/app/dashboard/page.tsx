@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering for dashboard
+export const dynamic = 'force-dynamic'
+
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -42,7 +45,8 @@ interface LearningProfile {
 }
 
 export default function Dashboard() {
-  const { data: session, status } = useSession()
+  const sessionData = useSession()
+  const { data: session, status } = sessionData || { data: null, status: 'loading' }
   const router = useRouter()
   const [profile, setProfile] = useState<LearningProfile | null>(null)
   const [loading, setLoading] = useState(true)

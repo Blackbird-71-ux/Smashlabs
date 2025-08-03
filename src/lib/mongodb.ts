@@ -1,18 +1,22 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI!
+const MONGODB_URI = process.env.MONGODB_URI || ''
 
-if (!MONGODB_URI) {
-  throw new Error('Please add your MongoDB URI to .env')
+if (!MONGODB_URI && process.env.NODE_ENV !== 'development') {
+  console.warn('MongoDB URI not found in environment variables')
 }
 
-let cached = global.mongoose
+let cached = (global as any).mongoose
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null }
+  cached = (global as any).mongoose = { conn: null, promise: null }
 }
 
 export async function connectDB() {
+  if (!MONGODB_URI) {
+    throw new Error('MongoDB URI is not configured')
+  }
+  
   if (cached.conn) {
     return cached.conn
   }
