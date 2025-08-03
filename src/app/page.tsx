@@ -56,7 +56,7 @@ export default function Home() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [contactFormErrors, setContactFormErrors] = useState<Record<string, string>>({});
 
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
 
   const [showStats, setShowStats] = useState(false);
   const [showSmashAnimation, setShowSmashAnimation] = useState(false);
