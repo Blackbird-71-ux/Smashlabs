@@ -1,6 +1,6 @@
-# SmashLabs - Themed Rage Room Experience
+# SmashTech - Gamified FinTech Education Platform
 
-A Next.js application for SmashLabs, featuring themed rage rooms with immersive physics-based experiences.
+A Next.js SaaS application for SmashTech, featuring gamified financial technology education with interactive learning experiences.
 
 ## 🚀 Quick Start
 

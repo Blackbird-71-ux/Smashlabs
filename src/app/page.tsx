@@ -334,14 +334,14 @@ export default function Home() {
             className="text-center relative z-10"
             suppressHydrationWarning={true}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-red-500">
-              Unleash Your Inner Beast
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-blue-500">
+              Master FinTech Like a Pro
             </h1>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8 text-white">
-              <span className="text-red-500">Smash</span>. Destroy. <span className="text-red-500">Conquer</span>.
+              <span className="text-blue-500">Learn</span>. Apply. <span className="text-blue-500">Succeed</span>.
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
-              Dive into the ultimate stress-relief experience. Break free from your worries and unleash your rage in a safe, exhilarating environment.
+              Master the intersection of finance and technology through gamified learning experiences. Build real-world skills that power the future of finance.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -353,18 +353,18 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => scrollToSection('booknow')}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-semibold transition-colors duration-200 border border-red-500 hover:border-red-600 uppercase tracking-wide"
+                onClick={() => scrollToSection('signup')}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-semibold transition-colors duration-200 border border-blue-500 hover:border-blue-600 uppercase tracking-wide"
               >
-                Book Session
+                Start Learning
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => scrollToSection('experience')}
+                onClick={() => scrollToSection('features')}
                 className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded text-sm font-semibold transition-colors duration-200 border border-gray-600 hover:border-gray-500 uppercase tracking-wide"
               >
-                Learn More
+                View Features
               </motion.button>
             </motion.div>
           </motion.div>

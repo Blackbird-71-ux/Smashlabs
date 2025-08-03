@@ -19,11 +19,11 @@ const Navbar = () => {
 
   const navLinks = [
     { id: 'home', label: 'Home', href: '/' },
-    { id: 'experience', label: 'Experience', href: isHomepage ? '#experience' : '/#experience' },
-    { id: 'themed-rooms', label: 'Rooms', href: '/rooms' },
-    { id: 'gallery', label: 'Gallery', href: isHomepage ? '#gallery' : '/#gallery' },
+    { id: 'features', label: 'Features', href: isHomepage ? '#features' : '/#features' },
+    { id: 'courses', label: 'Courses', href: '/courses' },
+    { id: 'learning-paths', label: 'Learning Paths', href: isHomepage ? '#learning-paths' : '/#learning-paths' },
     { id: 'testimonials', label: 'Testimonials', href: isHomepage ? '#testimonials' : '/#testimonials' },
-    { id: 'booknow', label: 'Book Now', href: '/book' }
+    { id: 'signup', label: 'Sign Up', href: '/signup' }
   ];
 
   useEffect(() => {
@@ -126,20 +126,20 @@ const Navbar = () => {
           <Link 
             href="/" 
             className="flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 rounded-lg p-2" 
-            aria-label="SmashLabs Home - Go to homepage"
+            aria-label="SmashTech Home - Go to homepage"
           >
             <Image
               src="/logo.png"
-              alt="SmashLabs Logo"
+              alt="SmashTech Logo"
               width={40}
               height={40}
               className="transition-transform duration-300 group-hover:scale-110"
               priority
             />
             <span className={`text-2xl font-extrabold tracking-tight transition-colors duration-300 ${
-              isScrolled ? 'text-red-500 group-hover:text-white' : 'text-white group-hover:text-gray-200'
+              isScrolled ? 'text-blue-500 group-hover:text-white' : 'text-white group-hover:text-gray-200'
             }`}>
-              <span className="text-red-500">SMASH</span>LABS
+              <span className="text-blue-500">SMASH</span>TECH
             </span>
           </Link>
 
@@ -151,8 +151,8 @@ const Navbar = () => {
                 onClick={(e) => handleNavigation(link, e)}
                 onKeyDown={(e) => handleKeyDown(e, link)}
                 className={`text-sm lg:text-base font-medium transition-colors duration-300 whitespace-nowrap px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-dark-900 ${
-                  (isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))
-                    ? 'text-white font-semibold bg-red-600/20' 
+                  (isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/courses' && pathname.startsWith('/courses'))
+                    ? 'text-white font-semibold bg-blue-600/20' 
                     : (isScrolled ? 'text-gray-300 hover:text-white hover:bg-gray-700/50' : 'text-gray-300 hover:text-white hover:bg-white/5')
                 }`}
                 aria-current={((isHomepage && activeSection === link.id) || (!isHomepage && pathname === link.href) || (link.href === '/rooms' && pathname.startsWith('/rooms'))) ? 'page' : undefined}
