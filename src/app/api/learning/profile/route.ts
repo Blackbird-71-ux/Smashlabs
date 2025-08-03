@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { connectDB } from '@/lib/mongodb'
-import LearningProfile from '../../../../models/LearningProfile'
-import User from '../../../../models/User'
+import LearningProfile from '../../../../../models/LearningProfile'
+import User from '../../../../../models/User'
 
 export async function GET(request: NextRequest) {
   try {

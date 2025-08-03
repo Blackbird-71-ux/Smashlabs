@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { connectDB } from '@/lib/mongodb'
-import LearningProfile from '../../../../models/LearningProfile'
+import LearningProfile from '../../../../../models/LearningProfile'
 
 export async function POST(request: NextRequest) {
   try {
