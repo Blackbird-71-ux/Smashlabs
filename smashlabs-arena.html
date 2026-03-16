@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmashLabs — AI Battle Arena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #080a0e;
+  --bg2:      #0f1218;
+  --bg3:      #161b24;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.12);
+  --text:     #eeecea;
+  --muted:    rgba(238,236,234,0.42);
+  --red:      #ff3b3b;
+  --blue:     #3b8fff;
+  --gold:     #f5c842;
+  --green:    #00e87a;
+  --orange:   #ff7a1a;
+  --glow-r:   rgba(255,59,59,0.18);
+  --glow-b:   rgba(59,143,255,0.18);
+  --display:  'Bebas Neue', sans-serif;
+  --heading:  'Syne', sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--heading); overflow-x: hidden; cursor: default; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── SCANLINE OVERLAY ── */
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 60px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(8,10,14,0.9); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family: var(--display); font-size: 1.7rem; letter-spacing: 0.05em;
+  background: linear-gradient(90deg, var(--red), var(--orange));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.logo sub { font-size: 0.6rem; -webkit-text-fill-color: var(--muted); font-family: var(--mono); vertical-align: middle; letter-spacing: 0.1em; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; font-weight: 700; }
+.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.credits-badge {
+  font-family: var(--mono); font-size: 0.72rem; background: rgba(245,200,66,0.1);
+  border: 1px solid rgba(245,200,66,0.3); color: var(--gold); padding: 0.3rem 0.75rem;
+  border-radius: 2rem; display: flex; align-items: center; gap: 0.4rem;
+}
+.btn-pro {
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  color: #080a0e; font-size: 0.75rem; font-weight: 800; padding: 0.4rem 1.1rem;
+  border-radius: 2rem; border: none; cursor: pointer; font-family: var(--heading);
+  letter-spacing: 0.05em; transition: opacity 0.2s, transform 0.15s;
+}
+.btn-pro:hover { opacity: 0.88; transform: scale(1.03); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 5rem 2rem 3rem; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(255,59,59,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(59,143,255,0.07) 0%, transparent 70%);
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+}
+.vs-orbs {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 600px; height: 600px; pointer-events: none;
+}
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(80px); animation: pulse 4s ease-in-out infinite;
+}
+.orb-r { width: 280px; height: 280px; background: rgba(255,59,59,0.12); top: 10%; left: 0%; animation-delay: 0s; }
+.orb-b { width: 280px; height: 280px; background: rgba(59,143,255,0.12); top: 10%; right: 0%; animation-delay: 2s; }
+@keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.7; } }
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 1.25rem; position: relative; z-index: 1;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 0.9; letter-spacing: 0.02em; position: relative; z-index: 1;
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+.hero-h1 .r { color: var(--red); }
+.hero-h1 .vs { font-size: 0.45em; color: var(--muted); display: block; margin: 0.1em 0; letter-spacing: 0.15em; }
+.hero-h1 .b { color: var(--blue); }
+.hero-sub {
+  font-size: 1rem; color: var(--muted); max-width: 480px; line-height: 1.75; margin: 1.75rem auto 2.5rem;
+  position: relative; z-index: 1; font-weight: 400;
+  animation: fadeUp 0.6s ease 0.2s both;
+}
+.hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; animation: fadeUp 0.6s ease 0.3s both; }
+.btn-fight {
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  color: #080a0e; font-family: var(--display); font-size: 1.2rem; letter-spacing: 0.08em;
+  padding: 0.75rem 2.5rem; border-radius: 0.4rem; border: none; cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.15s; text-decoration: none; display: inline-block;
+}
+.btn-fight:hover { box-shadow: 0 0 40px rgba(255,59,59,0.5); transform: translateY(-2px) scale(1.02); }
+.btn-outline {
+  background: transparent; color: var(--text); font-family: var(--display); font-size: 1.2rem;
+  letter-spacing: 0.08em; padding: 0.75rem 2rem; border-radius: 0.4rem; cursor: pointer;
+  border: 1px solid var(--border2); text-decoration: none; display: inline-block;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-outline:hover { border-color: var(--text); background: rgba(255,255,255,0.04); }
+.hero-stats {
+  display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2.5rem;
+  border-top: 1px solid var(--border); position: relative; z-index: 1;
+  animation: fadeUp 0.6s ease 0.4s both; justify-content: center; flex-wrap: wrap;
+}
+.hstat-n { font-family: var(--display); font-size: 2.2rem; color: var(--gold); }
+.hstat-l { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.15rem; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+/* ── SECTION SHARED ── */
+.section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+.sec-label { font-family: var(--mono); font-size: 0.68rem; color: var(--red); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+.sec-label::before { content: '//'; opacity: 0.5; }
+.sec-h2 { font-family: var(--display); font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 0.03em; line-height: 1; margin-bottom: 0.5rem; }
+.sec-sub { font-size: 0.88rem; color: var(--muted); max-width: 480px; line-height: 1.7; margin-bottom: 2.5rem; font-weight: 400; }
+
+/* ── BATTLE ARENA ── */
+#arena { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+#arena .section { max-width: 1300px; }
+
+/* API KEY BANNER */
+.api-banner {
+  background: rgba(245,200,66,0.07); border: 1px solid rgba(245,200,66,0.2);
+  border-radius: 0.75rem; padding: 1rem 1.5rem; margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.api-banner-icon { font-size: 1.2rem; }
+.api-banner-text { flex: 1; }
+.api-banner-text strong { color: var(--gold); font-size: 0.85rem; }
+.api-banner-text p { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; font-family: var(--mono); }
+.api-input-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.api-input {
+  background: var(--bg3); border: 1px solid var(--border2); color: var(--text);
+  padding: 0.45rem 1rem; border-radius: 0.4rem; font-size: 0.8rem; font-family: var(--mono);
+  width: 300px; outline: none; transition: border-color 0.2s;
+}
+.api-input:focus { border-color: var(--gold); }
+.api-save-btn {
+  background: var(--gold); color: #080a0e; font-size: 0.78rem; font-weight: 800; padding: 0.45rem 1.1rem;
+  border-radius: 0.4rem; border: none; cursor: pointer; font-family: var(--heading); transition: opacity 0.2s;
+}
+.api-save-btn:hover { opacity: 0.85; }
+
+/* COMBATANT PICKER */
+.arena-setup { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem; align-items: start; margin-bottom: 2rem; }
+.combatant-slot {
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 1rem;
+  padding: 1.5rem; transition: border-color 0.2s;
+}
+.combatant-slot.left:hover { border-color: rgba(255,59,59,0.4); }
+.combatant-slot.right:hover { border-color: rgba(59,143,255,0.4); }
+.combatant-slot.left.selected { border-color: var(--red); box-shadow: 0 0 30px rgba(255,59,59,0.12); }
+.combatant-slot.right.selected { border-color: var(--blue); box-shadow: 0 0 30px rgba(59,143,255,0.12); }
+.slot-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+.slot-label.r { color: var(--red); }
+.slot-label.b { color: var(--blue); }
+.model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.model-btn {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 0.6rem;
+  padding: 0.7rem 0.9rem; cursor: pointer; text-align: left; transition: all 0.15s;
+  font-family: var(--heading);
+}
+.model-btn:hover { border-color: var(--border2); background: var(--bg3); }
+.model-btn.selected-r { border-color: var(--red); background: rgba(255,59,59,0.08); }
+.model-btn.selected-b { border-color: var(--blue); background: rgba(59,143,255,0.08); }
+.model-btn-name { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+.model-btn-co { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); margin-top: 0.15rem; }
+.model-btn-elo { font-family: var(--mono); font-size: 0.65rem; color: var(--gold); margin-top: 0.3rem; }
+.vs-divider { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding-top: 2.5rem; }
+.vs-text { font-family: var(--display); font-size: 2.5rem; color: var(--muted); }
+.vs-lightning { font-size: 1.5rem; animation: flash 1.5s ease-in-out infinite; }
+@keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* PROMPT */
+.prompt-zone { margin-bottom: 1.5rem; }
+.prompt-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.6rem; }
+.prompt-presets { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.preset-btn {
+  background: var(--bg3); border: 1px solid var(--border); color: var(--muted); font-size: 0.72rem;
+  padding: 0.3rem 0.75rem; border-radius: 2rem; cursor: pointer; font-family: var(--heading); transition: all 0.15s;
+}
+.preset-btn:hover { border-color: var(--border2); color: var(--text); background: var(--bg2); }
+.prompt-input {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border2); color: var(--text);
+  padding: 1rem 1.25rem; border-radius: 0.75rem; font-size: 0.92rem; font-family: var(--heading);
+  resize: none; outline: none; transition: border-color 0.2s; line-height: 1.6;
+}
+.prompt-input:focus { border-color: rgba(255,59,59,0.5); }
+.prompt-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; flex-wrap: wrap; gap: 0.75rem; }
+.prompt-hint { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
+.fight-btn {
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  color: #080a0e; font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.1em;
+  padding: 0.65rem 3rem; border-radius: 0.5rem; border: none; cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.15s; display: flex; align-items: center; gap: 0.75rem;
+}
+.fight-btn:hover:not(:disabled) { box-shadow: 0 0 40px rgba(255,59,59,0.5); transform: scale(1.02); }
+.fight-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+.fight-btn.loading { animation: throb 0.8s ease infinite; }
+@keyframes throb { 0%,100% { box-shadow: 0 0 20px rgba(255,59,59,0.3); } 50% { box-shadow: 0 0 50px rgba(255,59,59,0.6); } }
+
+/* BATTLE RESULTS */
+.results-area { display: none; }
+.results-area.visible { display: block; }
+.results-header { text-align: center; padding: 1.5rem 0; }
+.results-header h3 { font-family: var(--display); font-size: 1.6rem; letter-spacing: 0.05em; color: var(--muted); }
+.battle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.response-card {
+  background: var(--bg3); border-radius: 1rem; overflow: hidden;
+  border: 1px solid var(--border); transition: border-color 0.3s;
+}
+.response-card.winner-r { border-color: var(--red); box-shadow: 0 0 40px rgba(255,59,59,0.15); }
+.response-card.winner-b { border-color: var(--blue); box-shadow: 0 0 40px rgba(59,143,255,0.15); }
+.resp-header {
+  padding: 0.85rem 1.25rem; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.resp-header.r { background: rgba(255,59,59,0.08); }
+.resp-header.b { background: rgba(59,143,255,0.08); }
+.resp-model-name { font-size: 0.88rem; font-weight: 800; }
+.resp-model-name.r { color: var(--red); }
+.resp-model-name.b { color: var(--blue); }
+.resp-time { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+.resp-body { padding: 1.25rem; font-size: 0.85rem; line-height: 1.75; color: var(--text); min-height: 160px; font-weight: 400; white-space: pre-wrap; }
+.resp-body.thinking { color: var(--muted); font-style: italic; font-family: var(--mono); }
+.typing-cursor { display: inline-block; width: 2px; height: 1em; background: var(--text); margin-left: 2px; animation: blink 0.7s step-end infinite; vertical-align: text-bottom; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* VOTE */
+.vote-zone { background: var(--bg2); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; text-align: center; margin-bottom: 2rem; }
+.vote-q { font-family: var(--display); font-size: 1.8rem; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+.vote-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.vote-btn {
+  font-family: var(--display); font-size: 1.1rem; letter-spacing: 0.06em;
+  padding: 0.75rem 2.5rem; border-radius: 0.5rem; border: 1px solid; cursor: pointer;
+  transition: all 0.2s;
+}
+.vote-btn.r { background: rgba(255,59,59,0.1); border-color: var(--red); color: var(--red); }
+.vote-btn.r:hover { background: var(--red); color: #080a0e; box-shadow: 0 0 30px rgba(255,59,59,0.4); }
+.vote-btn.b { background: rgba(59,143,255,0.1); border-color: var(--blue); color: var(--blue); }
+.vote-btn.b:hover { background: var(--blue); color: #080a0e; box-shadow: 0 0 30px rgba(59,143,255,0.4); }
+.vote-btn.tie { background: rgba(245,200,66,0.1); border-color: var(--gold); color: var(--gold); }
+.vote-btn.tie:hover { background: var(--gold); color: #080a0e; }
+.vote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.vote-result { display: none; }
+.vote-result.visible { display: block; margin-top: 1.5rem; }
+.vote-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.vbar-label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 0.4rem; }
+.vbar-track { height: 8px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+.vbar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+.vbar-fill.r { background: var(--red); }
+.vbar-fill.b { background: var(--blue); }
+.vbar-pct { font-family: var(--display); font-size: 1.3rem; margin-top: 0.3rem; }
+
+/* ── LEADERBOARD ── */
+#leaderboard { background: var(--bg); }
+.board-table { width: 100%; border-collapse: collapse; }
+.board-table th {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); text-align: left; font-weight: 400;
+}
+.board-table th:not(:first-child) { text-align: center; }
+.board-table td { padding: 1rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.board-table td:not(:first-child) { text-align: center; }
+.board-table tr:hover td { background: var(--bg2); }
+.rank-badge {
+  font-family: var(--display); font-size: 1.1rem; letter-spacing: 0.05em;
+  width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 0.4rem;
+}
+.rank-1 { background: rgba(245,200,66,0.2); color: var(--gold); }
+.rank-2 { background: rgba(180,180,180,0.15); color: #ccc; }
+.rank-3 { background: rgba(205,127,50,0.15); color: #cd7f32; }
+.rank-n { background: var(--bg3); color: var(--muted); font-size: 0.85rem; }
+.model-cell { display: flex; align-items: center; gap: 0.75rem; }
+.model-avatar { width: 36px; height: 36px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.model-cell-name { font-size: 0.9rem; font-weight: 700; }
+.model-cell-co { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+.elo-num { font-family: var(--display); font-size: 1.3rem; letter-spacing: 0.03em; }
+.elo-num.top { color: var(--gold); }
+.elo-change { font-family: var(--mono); font-size: 0.68rem; }
+.elo-change.up { color: var(--green); }
+.elo-change.dn { color: var(--red); }
+.winrate-bar { display: flex; align-items: center; gap: 0.75rem; justify-content: center; }
+.wr-track { width: 80px; height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.wr-fill { height: 100%; border-radius: 3px; background: var(--green); }
+.stat-cell { font-family: var(--mono); font-size: 0.78rem; }
+.stat-cell .w { color: var(--green); }
+.stat-cell .l { color: var(--red); }
+
+/* ── BATTLE FEED ── */
+#feed { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+.feed-card {
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 0.85rem;
+  padding: 1.25rem; transition: border-color 0.2s, transform 0.15s; cursor: pointer;
+}
+.feed-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.feed-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+.feed-combatants { display: flex; align-items: center; gap: 0.5rem; font-family: var(--display); font-size: 0.95rem; }
+.fc-r { color: var(--red); }
+.fc-vs { color: var(--muted); font-size: 0.7em; }
+.fc-b { color: var(--blue); }
+.feed-winner-badge { font-family: var(--mono); font-size: 0.62rem; padding: 0.2rem 0.6rem; border-radius: 2rem; }
+.fw-r { background: rgba(255,59,59,0.15); color: var(--red); border: 1px solid rgba(255,59,59,0.3); }
+.fw-b { background: rgba(59,143,255,0.15); color: var(--blue); border: 1px solid rgba(59,143,255,0.3); }
+.fw-tie { background: rgba(245,200,66,0.15); color: var(--gold); border: 1px solid rgba(245,200,66,0.3); }
+.feed-prompt { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin-bottom: 0.85rem; font-style: italic; font-weight: 400; }
+.feed-meta { display: flex; gap: 1rem; }
+.feed-stat { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+.feed-stat span { color: var(--text); }
+
+/* ── MONETIZE / PRICING ── */
+#pricing { background: var(--bg); }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.price-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem;
+  display: flex; flex-direction: column; gap: 1rem; position: relative; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.price-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.price-card.free::before { background: var(--border2); }
+.price-card.pro::before { background: linear-gradient(90deg, var(--red), var(--orange)); }
+.price-card.arena::before { background: linear-gradient(90deg, var(--blue), var(--green)); }
+.price-card.enterprise::before { background: linear-gradient(90deg, var(--gold), var(--orange)); }
+.price-card.pro { border-color: rgba(255,59,59,0.3); }
+.popular-badge {
+  position: absolute; top: 1rem; right: 1rem;
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  color: #080a0e; font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 2rem;
+}
+.price-tier { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+.price-amount { font-family: var(--display); font-size: 2.8rem; letter-spacing: 0.02em; line-height: 1; }
+.price-amount sub { font-size: 0.4em; color: var(--muted); }
+.price-period { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: -0.25rem; }
+.price-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+.price-features li { font-size: 0.82rem; color: var(--muted); display: flex; align-items: flex-start; gap: 0.6rem; font-weight: 400; }
+.price-features li::before { content: '→'; color: var(--red); font-family: var(--mono); flex-shrink: 0; margin-top: 0.05rem; }
+.price-features li.on { color: var(--text); }
+.price-cta {
+  background: var(--bg3); border: 1px solid var(--border2); color: var(--text);
+  font-family: var(--display); font-size: 1rem; letter-spacing: 0.08em; padding: 0.65rem;
+  border-radius: 0.5rem; cursor: pointer; text-align: center; transition: all 0.2s; width: 100%;
+}
+.price-cta:hover { border-color: var(--text); background: var(--bg2); }
+.price-card.pro .price-cta {
+  background: linear-gradient(135deg, var(--red), var(--orange)); border-color: transparent; color: #080a0e;
+}
+.price-card.pro .price-cta:hover { box-shadow: 0 0 30px rgba(255,59,59,0.4); }
+
+/* ── API GUIDE ── */
+#apikeys { background: var(--bg2); border-top: 1px solid var(--border); }
+.key-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.key-step { background: var(--bg3); border: 1px solid var(--border); border-radius: 0.85rem; padding: 1.5rem; }
+.step-num { font-family: var(--display); font-size: 3rem; color: var(--border2); line-height: 1; margin-bottom: 0.75rem; }
+.step-provider { font-family: var(--mono); font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.step-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem; }
+.step-body { font-size: 0.8rem; color: var(--muted); line-height: 1.65; font-weight: 400; }
+.step-link { color: var(--blue); text-decoration: none; font-family: var(--mono); font-size: 0.72rem; }
+.step-link:hover { text-decoration: underline; }
+.code-block {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 0.5rem;
+  padding: 0.75rem 1rem; font-family: var(--mono); font-size: 0.72rem; color: var(--green);
+  margin-top: 0.75rem; line-height: 1.6; overflow-x: auto;
+}
+.code-block .key { color: var(--blue); }
+.code-block .val { color: var(--gold); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border); padding: 2rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-family: var(--display); font-size: 1.3rem; background: linear-gradient(90deg, var(--red), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; }
+.footer-copy { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+  background: var(--bg3); border: 1px solid var(--border2); border-radius: 0.75rem;
+  padding: 0.85rem 1.25rem; font-size: 0.82rem; display: none; gap: 0.5rem; align-items: center;
+  animation: slideUp 0.3s ease;
+}
+.toast.show { display: flex; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .arena-setup { grid-template-columns: 1fr; }
+  .vs-divider { flex-direction: row; padding-top: 0; }
+  .battle-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 1rem; }
+  .section { padding: 3rem 1.25rem; }
+  .hero-h1 { font-size: 3.5rem; }
+  .model-grid { grid-template-columns: 1fr; }
+  .vote-btns { flex-direction: column; align-items: center; }
+  .vote-btn { width: 80%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">SmashLabs <sub>AI ARENA</sub></div>
+  <div class="nav-links">
+    <a href="#arena">Battle</a>
+    <a href="#leaderboard">Rankings</a>
+    <a href="#feed">History</a>
+    <a href="#pricing">Pro</a>
+    <a href="#apikeys">API Keys</a>
+  </div>
+  <div class="nav-right">
+    <div class="credits-badge">⚡ <span id="creditsCount">5</span> battles left</div>
+    <button class="btn-pro" onclick="scrollTo('#pricing')">Go Pro</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="vs-orbs">
+    <div class="orb orb-r"></div>
+    <div class="orb orb-b"></div>
+  </div>
+  <div class="hero-eyebrow">// enter the arena</div>
+  <h1 class="hero-h1">
+    <span class="r">AI</span>
+    <span class="vs">VS</span>
+    <span class="b">AI</span>
+  </h1>
+  <p class="hero-sub">Pick any two AI models. Give them a challenge. Watch them fight. Vote for the winner. The ultimate AI battle platform.</p>
+  <div class="hero-ctas">
+    <a href="#arena" class="btn-fight">⚔ START A BATTLE</a>
+    <a href="#leaderboard" class="btn-outline">VIEW RANKINGS</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hstat-n" id="totalBattles">1,247</div><div class="hstat-l">Battles fought</div></div>
+    <div><div class="hstat-n">9</div><div class="hstat-l">AI models</div></div>
+    <div><div class="hstat-n" id="totalVotes">8,391</div><div class="hstat-l">Votes cast</div></div>
+    <div><div class="hstat-n">Live</div><div class="hstat-l">Leaderboard</div></div>
+  </div>
+</div>
+
+<!-- ARENA -->
+<div id="arena">
+<div class="section">
+  <div class="sec-label">Main Event</div>
+  <h2 class="sec-h2">BATTLE ARENA</h2>
+  <p class="sec-sub">Select two models, enter a prompt, and let them smash.</p>
+
+  <!-- API KEY BANNER -->
+  <div class="api-banner" id="apiBanner">
+    <div class="api-banner-icon">🔑</div>
+    <div class="api-banner-text">
+      <strong>Add your Anthropic API key to run live battles</strong>
+      <p>Without a key, battles use simulated responses · <a href="#apikeys" class="step-link">How to get API keys ↓</a></p>
+    </div>
+    <div class="api-input-row">
+      <input class="api-input" type="password" id="apiKeyInput" placeholder="sk-ant-api03-...">
+      <button class="api-save-btn" onclick="saveApiKey()">Save Key</button>
+    </div>
+  </div>
+
+  <!-- COMBATANT SELECTOR -->
+  <div class="arena-setup">
+    <div class="combatant-slot left" id="slotLeft">
+      <div class="slot-label r">// Fighter 1</div>
+      <div class="model-grid" id="modelGridLeft"></div>
+    </div>
+    <div class="vs-divider">
+      <div class="vs-lightning">⚡</div>
+      <div class="vs-text">VS</div>
+      <div class="vs-lightning">⚡</div>
+    </div>
+    <div class="combatant-slot right" id="slotRight">
+      <div class="slot-label b">// Fighter 2</div>
+      <div class="model-grid" id="modelGridRight"></div>
+    </div>
+  </div>
+
+  <!-- PROMPT -->
+  <div class="prompt-zone">
+    <div class="prompt-label">// Battle Prompt</div>
+    <div class="prompt-presets" id="presets"></div>
+    <textarea class="prompt-input" id="promptInput" rows="4" placeholder="Enter any challenge... e.g. 'Write a Python function to detect fraud in financial transactions'"></textarea>
+    <div class="prompt-footer">
+      <span class="prompt-hint" id="promptStatus">Select 2 fighters and enter a prompt</span>
+      <button class="fight-btn" id="fightBtn" disabled onclick="startBattle()">
+        ⚔ FIGHT
+      </button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-area" id="resultsArea">
+    <div class="results-header"><h3 id="resultsTitle">ROUND 1 — FIGHT!</h3></div>
+    <div class="battle-grid">
+      <div class="response-card" id="cardLeft">
+        <div class="resp-header r">
+          <div class="resp-model-name r" id="respNameLeft">—</div>
+          <div class="resp-time" id="respTimeLeft"></div>
+        </div>
+        <div class="resp-body thinking" id="respBodyLeft">Waiting...</div>
+      </div>
+      <div class="response-card" id="cardRight">
+        <div class="resp-header b">
+          <div class="resp-model-name b" id="respNameRight">—</div>
+          <div class="resp-time" id="respTimeRight"></div>
+        </div>
+        <div class="resp-body thinking" id="respBodyRight">Waiting...</div>
+      </div>
+    </div>
+    <div class="vote-zone" id="voteZone">
+      <div class="vote-q">Who smashed it? 🏆</div>
+      <div class="vote-btns">
+        <button class="vote-btn r" id="voteLeft" onclick="castVote('left')">FIGHTER 1 WINS</button>
+        <button class="vote-btn tie" onclick="castVote('tie')">🤝 TIE</button>
+        <button class="vote-btn b" id="voteRight" onclick="castVote('right')">FIGHTER 2 WINS</button>
+      </div>
+      <div class="vote-result" id="voteResult">
+        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-bottom:1rem">Community votes for this model pairing:</div>
+        <div class="vote-bars">
+          <div>
+            <div class="vbar-label" id="vLabel1">Fighter 1</div>
+            <div class="vbar-track"><div class="vbar-fill r" id="vBar1" style="width:0%"></div></div>
+            <div class="vbar-pct" style="color:var(--red)" id="vPct1">0%</div>
+          </div>
+          <div>
+            <div class="vbar-label" id="vLabel2">Fighter 2</div>
+            <div class="vbar-track"><div class="vbar-fill b" id="vBar2" style="width:0%"></div></div>
+            <div class="vbar-pct" style="color:var(--blue)" id="vPct2">0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="leaderboard">
+<div class="section">
+  <div class="sec-label">ELO Rankings</div>
+  <h2 class="sec-h2">WORLD RANKINGS</h2>
+  <p class="sec-sub">Live ELO leaderboard updated after every battle. Updated in real time as the community votes.</p>
+  <table class="board-table">
+    <thead>
+      <tr>
+        <th>#</th><th>Model</th><th>ELO Rating</th><th>Win Rate</th><th>W / L / T</th><th>Trend</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboardBody"></tbody>
+  </table>
+</div>
+</div>
+
+<!-- FEED -->
+<div id="feed">
+<div class="section">
+  <div class="sec-label">Recent Battles</div>
+  <h2 class="sec-h2">BATTLE HISTORY</h2>
+  <p class="sec-sub">The last 100 battles fought by the community. Click any card to replay.</p>
+  <div class="feed-grid" id="feedGrid"></div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing">
+<div class="section">
+  <div class="sec-label">Monetization</div>
+  <h2 class="sec-h2">CHOOSE YOUR TIER</h2>
+  <p class="sec-sub">Scale from free to full arena access. Pro users fund the server costs and unlock the good stuff.</p>
+  <div class="pricing-grid">
+    <div class="price-card free">
+      <div class="price-tier">Spectator</div>
+      <div class="price-amount">₹0 <sub>/mo</sub></div>
+      <div class="price-period">Free forever</div>
+      <ul class="price-features">
+        <li class="on">5 battles per day</li>
+        <li class="on">Community voting</li>
+        <li class="on">View leaderboard</li>
+        <li class="on">Battle history feed</li>
+        <li>GPT-5.4 + Claude Opus</li>
+        <li>Custom prompts library</li>
+        <li>Battle analytics</li>
+        <li>API access</li>
+      </ul>
+      <button class="price-cta">Current Plan</button>
+    </div>
+    <div class="price-card pro">
+      <div class="popular-badge">MOST POPULAR</div>
+      <div class="price-tier">Pro Fighter</div>
+      <div class="price-amount">₹499 <sub>/mo</sub></div>
+      <div class="price-period">~$6 USD per month</div>
+      <ul class="price-features">
+        <li class="on">Unlimited battles</li>
+        <li class="on">All 9 models including GPT-5.4 & Opus</li>
+        <li class="on">Private battles</li>
+        <li class="on">Battle analytics dashboard</li>
+        <li class="on">Custom prompt library</li>
+        <li class="on">Early access to new models</li>
+        <li class="on">Export battle reports (PDF)</li>
+        <li>API access</li>
+      </ul>
+      <button class="price-cta" onclick="showToast('🔥 Pro plan coming soon! Join the waitlist.')">Go Pro →</button>
+    </div>
+    <div class="price-card arena">
+      <div class="price-tier">Arena Master</div>
+      <div class="price-amount">₹1499 <sub>/mo</sub></div>
+      <div class="price-period">For teams & researchers</div>
+      <ul class="price-features">
+        <li class="on">Everything in Pro</li>
+        <li class="on">Team workspace (5 seats)</li>
+        <li class="on">Full REST API access</li>
+        <li class="on">Bulk battle testing</li>
+        <li class="on">Custom model benchmarks</li>
+        <li class="on">Webhook notifications</li>
+        <li class="on">White-label reports</li>
+        <li class="on">Priority support</li>
+      </ul>
+      <button class="price-cta" onclick="showToast('📬 Contact us for Arena plan.')">Contact Us →</button>
+    </div>
+    <div class="price-card enterprise">
+      <div class="price-tier">Sponsored Battle</div>
+      <div class="price-amount">₹25k <sub>/event</sub></div>
+      <div class="price-period">Brand partnership</div>
+      <ul class="price-features">
+        <li class="on">Host a themed AI challenge</li>
+        <li class="on">Your brand on battle UI</li>
+        <li class="on">Community-wide event push</li>
+        <li class="on">Custom prompt categories</li>
+        <li class="on">Post-event analytics report</li>
+        <li class="on">Social media coverage</li>
+        <li class="on">Featured in newsletter</li>
+        <li class="on">Co-branded certificates</li>
+      </ul>
+      <button class="price-cta" onclick="showToast('📬 Get in touch to sponsor a battle event!')">Partner With Us →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- API KEYS GUIDE -->
+<div id="apikeys">
+<div class="section">
+  <div class="sec-label">Get Started</div>
+  <h2 class="sec-h2">GET YOUR API KEYS</h2>
+  <p class="sec-sub">You need API keys to run live battles. Here's exactly how to get each one — takes under 5 minutes per provider.</p>
+  <div class="key-steps">
+    <div class="key-step">
+      <div class="step-num">01</div>
+      <div class="step-provider">Anthropic — Claude</div>
+      <div class="step-title">Get Claude API Key</div>
+      <div class="step-body">
+        1. Go to <a href="https://console.anthropic.com" class="step-link">console.anthropic.com</a><br>
+        2. Sign up / log in<br>
+        3. Click <strong>API Keys</strong> → Create Key<br>
+        4. Copy the key — starts with <code>sk-ant-</code><br>
+        5. Add credits in <strong>Billing</strong> (~$5 to start)<br><br>
+        Models: Claude Opus 4.6, Sonnet 4.6
+      </div>
+      <div class="code-block"><span class="key">ANTHROPIC_API_KEY</span>=<span class="val">sk-ant-api03-xxx</span></div>
+    </div>
+    <div class="key-step">
+      <div class="step-num">02</div>
+      <div class="step-provider">OpenAI — GPT</div>
+      <div class="step-title">Get OpenAI API Key</div>
+      <div class="step-body">
+        1. Go to <a href="https://platform.openai.com" class="step-link">platform.openai.com</a><br>
+        2. Sign up / log in<br>
+        3. Go to <strong>API Keys</strong> → Create new secret key<br>
+        4. Copy the key — starts with <code>sk-</code><br>
+        5. Add payment in <strong>Billing</strong> → $5 min<br><br>
+        Models: GPT-5.4, GPT-5.4 Thinking
+      </div>
+      <div class="code-block"><span class="key">OPENAI_API_KEY</span>=<span class="val">sk-proj-xxx</span></div>
+    </div>
+    <div class="key-step">
+      <div class="step-num">03</div>
+      <div class="step-provider">Google — Gemini</div>
+      <div class="step-title">Get Gemini API Key</div>
+      <div class="step-body">
+        1. Go to <a href="https://aistudio.google.com" class="step-link">aistudio.google.com</a><br>
+        2. Sign in with Google<br>
+        3. Click <strong>Get API Key</strong> → Create API key<br>
+        4. Free tier available ($0 to start!)<br>
+        5. Starts with <code>AIza</code><br><br>
+        Models: Gemini 3.1 Pro, Gemini 3 Flash
+      </div>
+      <div class="code-block"><span class="key">GOOGLE_API_KEY</span>=<span class="val">AIzaSy-xxx</span></div>
+    </div>
+    <div class="key-step">
+      <div class="step-num">04</div>
+      <div class="step-provider">Meta — Llama (via Groq)</div>
+      <div class="step-title">Run Llama 4 for free</div>
+      <div class="step-body">
+        1. Go to <a href="https://console.groq.com" class="step-link">console.groq.com</a><br>
+        2. Sign up (free tier available)<br>
+        3. Go to <strong>API Keys</strong> → Create<br>
+        4. Llama 4 Scout + Maverick available free<br>
+        5. Starts with <code>gsk_</code><br><br>
+        Models: Llama 4 Scout, Llama 4 Maverick
+      </div>
+      <div class="code-block"><span class="key">GROQ_API_KEY</span>=<span class="val">gsk_xxx</span></div>
+    </div>
+    <div class="key-step">
+      <div class="step-num">05</div>
+      <div class="step-provider">Deploy to Vercel</div>
+      <div class="step-title">Add keys to your site</div>
+      <div class="step-body">
+        Once you have keys, add them to Vercel so they work in production:<br><br>
+        1. Open <a href="https://vercel.com" class="step-link">vercel.com</a> → Your project<br>
+        2. Go to <strong>Settings → Environment Variables</strong><br>
+        3. Add each key as a variable<br>
+        4. Redeploy → done ✅<br><br>
+        They'll be available as <code>process.env.ANTHROPIC_API_KEY</code>
+      </div>
+      <div class="code-block">
+<span class="key">// Next.js API route</span>
+<span class="val">// pages/api/battle.js</span>
+const key = process.env.ANTHROPIC_API_KEY
+      </div>
+    </div>
+    <div class="key-step">
+      <div class="step-num">06</div>
+      <div class="step-provider">DeepSeek</div>
+      <div class="step-title">Get DeepSeek API Key</div>
+      <div class="step-body">
+        1. Go to <a href="https://platform.deepseek.com" class="step-link">platform.deepseek.com</a><br>
+        2. Sign up / log in<br>
+        3. Go to <strong>API Keys</strong> → Create<br>
+        4. Top up balance ($2 minimum)<br>
+        5. One of the cheapest frontier APIs<br><br>
+        Models: DeepSeek-V3.2, DeepSeek-R1
+      </div>
+      <div class="code-block"><span class="key">DEEPSEEK_API_KEY</span>=<span class="val">sk-xxx</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SmashLabs</div>
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Submit Model</a>
+    <a href="#">API Docs</a>
+    <a href="#">Twitter</a>
+    <a href="#pricing">Sponsorships</a>
+  </div>
+  <div class="footer-copy">© 2026 SmashLabs · smashlabs.in · Built with ⚡</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════
+   DATA
+══════════════════════════════════════ */
+const MODELS = [
+  { id:'claude-opus',    name:'Claude Opus 4.6',   co:'Anthropic',     elo:1847, w:312, l:89,  t:21, avatar:'🟣', color:'#9b59b6', apiId:'claude-opus-4-6' },
+  { id:'claude-sonnet',  name:'Claude Sonnet 4.6', co:'Anthropic',     elo:1791, w:278, l:110, t:18, avatar:'🔵', color:'#3498db', apiId:'claude-sonnet-4-6' },
+  { id:'gpt54',          name:'GPT-5.4',            co:'OpenAI',        elo:1823, w:298, l:97,  t:25, avatar:'🟢', color:'#2ecc71', apiId:'gpt-5.4' },
+  { id:'gpt54t',         name:'GPT-5.4 Thinking',  co:'OpenAI',        elo:1801, w:265, l:104, t:19, avatar:'🌿', color:'#27ae60', apiId:'gpt-5.4-thinking' },
+  { id:'gemini-pro',     name:'Gemini 3.1 Pro',    co:'Google',        elo:1778, w:245, l:118, t:22, avatar:'🔴', color:'#e74c3c', apiId:'gemini-3.1-pro' },
+  { id:'gemini-flash',   name:'Gemini 3 Flash',    co:'Google',        elo:1734, w:221, l:134, t:24, avatar:'🟡', color:'#f1c40f', apiId:'gemini-3-flash' },
+  { id:'llama-scout',    name:'Llama 4 Scout',     co:'Meta',          elo:1712, w:198, l:149, t:17, avatar:'🦙', color:'#e67e22', apiId:'llama-4-scout' },
+  { id:'llama-maverick', name:'Llama 4 Maverick',  co:'Meta',          elo:1695, w:187, l:158, t:14, avatar:'🌐', color:'#d35400', apiId:'meta-llama/llama-4-maverick' },
+  { id:'deepseek-r1',    name:'DeepSeek-R1-0528',  co:'DeepSeek',      elo:1741, w:229, l:128, t:20, avatar:'🐋', color:'#1abc9c', apiId:'deepseek-r1' },
+];
+
+const PRESETS = [
+  'Explain quantum entanglement to a 10 year old',
+  'Write a Python fraud detection function',
+  'Summarise the key risks of AGI in 3 bullets',
+  'Write a haiku about machine learning',
+  'Debate: should AI be regulated like pharma?',
+  'Create a SQL query to find top 10 customers by revenue',
+  'What will jobs look like in 2035?',
+  'Roast the concept of Web3 in 2 sentences',
+];
+
+const FEED_DATA = [
+  { left:'Claude Opus 4.6', right:'GPT-5.4', prompt:'Write a Python fraud detection function', winner:'left', votes_l:142, votes_r:89, votes_t:12, time:'2m ago' },
+  { left:'Gemini 3.1 Pro', right:'DeepSeek-R1-0528', prompt:'Explain quantum computing without jargon', winner:'right', votes_l:67, votes_r:134, votes_t:8, time:'7m ago' },
+  { left:'GPT-5.4 Thinking', right:'Claude Sonnet 4.6', prompt:'Debate: Is AGI inevitable?', winner:'tie', votes_l:98, votes_r:101, votes_t:45, time:'15m ago' },
+  { left:'Llama 4 Scout', right:'Gemini 3 Flash', prompt:'Generate a startup pitch for an AI tutor', winner:'left', votes_l:88, votes_r:56, votes_t:9, time:'22m ago' },
+  { left:'Claude Opus 4.6', right:'DeepSeek-R1-0528', prompt:'Solve this riddle: I speak without a mouth...', winner:'left', votes_l:201, votes_r:178, votes_t:23, time:'1h ago' },
+  { left:'GPT-5.4', right:'Gemini 3.1 Pro', prompt:'Write a cover letter for a software engineer role at Google', winner:'right', votes_l:112, votes_r:145, votes_t:19, time:'1h ago' },
+];
+
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+let selectedLeft = null;
+let selectedRight = null;
+let credits = 5;
+let apiKey = localStorage.getItem('smash_api_key') || '';
+let battleVotes = {};
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+window.addEventListener('load', () => {
+  renderModelGrids();
+  renderPresets();
+  renderLeaderboard();
+  renderFeed();
+  updateFightBtn();
+  if (apiKey) {
+    document.getElementById('apiKeyInput').value = apiKey;
+    document.getElementById('apiBanner').style.background = 'rgba(0,232,122,0.05)';
+    document.getElementById('apiBanner').style.borderColor = 'rgba(0,232,122,0.2)';
+  }
+  document.getElementById('promptInput').addEventListener('input', updateFightBtn);
+});
+
+/* ══════════════════════════════════════
+   MODEL GRIDS
+══════════════════════════════════════ */
+function renderModelGrids() {
+  ['Left','Right'].forEach(side => {
+    const el = document.getElementById('modelGrid'+side);
+    el.innerHTML = MODELS.map(m => `
+      <button class="model-btn" id="mb-${side}-${m.id}" onclick="selectModel('${side}','${m.id}')">
+        <div class="model-btn-name">${m.avatar} ${m.name}</div>
+        <div class="model-btn-co">${m.co}</div>
+        <div class="model-btn-elo">ELO ${m.elo}</div>
+      </button>
+    `).join('');
+  });
+}
+
+function selectModel(side, id) {
+  if (side === 'Left') {
+    if (id === selectedRight) return showToast('⚠️ Pick a different model for Fighter 2');
+    selectedLeft = id;
+    document.querySelectorAll('[id^="mb-Left-"]').forEach(b => b.classList.remove('selected-r'));
+    document.getElementById('mb-Left-'+id).classList.add('selected-r');
+    document.getElementById('slotLeft').classList.add('selected');
+  } else {
+    if (id === selectedLeft) return showToast('⚠️ Pick a different model for Fighter 1');
+    selectedRight = id;
+    document.querySelectorAll('[id^="mb-Right-"]').forEach(b => b.classList.remove('selected-b'));
+    document.getElementById('mb-Right-'+id).classList.add('selected-b');
+    document.getElementById('slotRight').classList.add('selected');
+  }
+  updateFightBtn();
+  const m = MODELS.find(x=>x.id===id);
+  showToast(`${m.avatar} ${m.name} selected for Fighter ${side==='Left'?1:2}`);
+}
+
+/* ══════════════════════════════════════
+   PRESETS
+══════════════════════════════════════ */
+function renderPresets() {
+  document.getElementById('presets').innerHTML = PRESETS.map(p => `
+    <button class="preset-btn" onclick="setPreset(this,'${p.replace(/'/g,"\\'")}')">
+      ${p.length > 40 ? p.slice(0,40)+'…' : p}
+    </button>
+  `).join('');
+}
+function setPreset(btn, text) {
+  document.getElementById('promptInput').value = text;
+  document.querySelectorAll('.preset-btn').forEach(b=>b.style.borderColor='');
+  btn.style.borderColor = 'var(--red)';
+  btn.style.color = 'var(--text)';
+  updateFightBtn();
+}
+
+/* ══════════════════════════════════════
+   FIGHT BTN STATE
+══════════════════════════════════════ */
+function updateFightBtn() {
+  const btn = document.getElementById('fightBtn');
+  const prompt = document.getElementById('promptInput').value.trim();
+  const ready = selectedLeft && selectedRight && prompt.length > 3;
+  btn.disabled = !ready;
+  const status = document.getElementById('promptStatus');
+  if (!selectedLeft && !selectedRight) status.textContent = 'Select 2 fighters and enter a prompt';
+  else if (!selectedLeft) status.textContent = 'Select Fighter 1';
+  else if (!selectedRight) status.textContent = 'Select Fighter 2';
+  else if (!prompt) status.textContent = 'Enter a battle prompt';
+  else { const l=MODELS.find(x=>x.id===selectedLeft), r=MODELS.find(x=>x.id===selectedRight); status.textContent = `${l.name} vs ${r.name} — ready to fight!`; }
+}
+
+/* ══════════════════════════════════════
+   BATTLE
+══════════════════════════════════════ */
+async function startBattle() {
+  if (credits <= 0) { showToast('⚡ No credits left! Upgrade to Pro.'); return; }
+  credits--;
+  document.getElementById('creditsCount').textContent = credits;
+
+  const prompt = document.getElementById('promptInput').value.trim();
+  const lModel = MODELS.find(x=>x.id===selectedLeft);
+  const rModel = MODELS.find(x=>x.id===selectedRight);
+
+  const btn = document.getElementById('fightBtn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btn.textContent = '⚡ FIGHTING...';
+
+  const results = document.getElementById('resultsArea');
+  results.classList.add('visible');
+  results.scrollIntoView({ behavior:'smooth', block:'start' });
+
+  document.getElementById('respNameLeft').textContent = lModel.name;
+  document.getElementById('respNameRight').textContent = rModel.name;
+  document.getElementById('voteLeft').textContent = lModel.name.toUpperCase() + ' WINS';
+  document.getElementById('voteRight').textContent = rModel.name.toUpperCase() + ' WINS';
+  document.getElementById('vLabel1').textContent = lModel.name;
+  document.getElementById('vLabel2').textContent = rModel.name;
+
+  document.getElementById('respBodyLeft').textContent = '';
+  document.getElementById('respBodyRight').textContent = '';
+  document.getElementById('respBodyLeft').className = 'resp-body thinking';
+  document.getElementById('respBodyRight').className = 'resp-body thinking';
+  document.getElementById('respBodyLeft').innerHTML = 'Thinking<span class="typing-cursor"></span>';
+  document.getElementById('respBodyRight').innerHTML = 'Thinking<span class="typing-cursor"></span>';
+
+  document.getElementById('respTimeLeft').textContent = '';
+  document.getElementById('respTimeRight').textContent = '';
+  document.getElementById('cardLeft').className = 'response-card';
+  document.getElementById('cardRight').className = 'response-card';
+
+  // Reset vote
+  document.getElementById('voteResult').classList.remove('visible');
+  document.getElementById('voteLeft').disabled = false;
+  document.getElementById('voteRight').disabled = false;
+  document.querySelectorAll('.vote-btn').forEach(b=>b.disabled=false);
+  document.getElementById('vBar1').style.width = '0%';
+  document.getElementById('vBar2').style.width = '0%';
+
+  const startL = Date.now();
+  const startR = Date.now();
+
+  // Run both in parallel
+  const [respL, respR] = await Promise.all([
+    getResponse(lModel, prompt, 'Left', startL),
+    getResponse(rModel, prompt, 'Right', startR),
+  ]);
+
+  // Update ELO counters in hero
+  document.getElementById('totalBattles').textContent = (parseInt(document.getElementById('totalBattles').textContent.replace(',',''))+1).toLocaleString();
+
+  btn.classList.remove('loading');
+  btn.disabled = false;
+  btn.textContent = '⚔ FIGHT AGAIN';
+  document.getElementById('resultsTitle').textContent = `${lModel.name} vs ${rModel.name}`;
+}
+
+async function getResponse(model, prompt, side, startTime) {
+  const bodyEl = document.getElementById('respBody'+side);
+  const timeEl = document.getElementById('respTime'+side);
+  bodyEl.className = 'resp-body';
+
+  // If we have an Anthropic key and it's a Claude model, use real API
+  if (apiKey && (model.id === 'claude-opus' || model.id === 'claude-sonnet')) {
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: model.apiId, max_tokens: 512, messages: [{ role:'user', content: prompt }] })
+      });
+      const data = await res.json();
+      const elapsed = ((Date.now() - startTime)/1000).toFixed(1);
+      timeEl.textContent = `${elapsed}s`;
+      if (data.content && data.content[0]) {
+        await typeText(bodyEl, data.content[0].text);
+      } else {
+        await typeText(bodyEl, '⚠️ API error: ' + (data.error?.message || 'Unknown error'));
+      }
+      return data;
+    } catch(e) {
+      await typeText(bodyEl, '⚠️ Error calling API. Check your key.');
+    }
+  } else {
+    // Simulate response
+    await simulateResponse(model, prompt, bodyEl, timeEl, startTime);
+  }
+}
+
+async function simulateResponse(model, prompt, bodyEl, timeEl, startTime) {
+  const responses = {
+    'claude-opus': [
+      `I'll approach this thoughtfully.\n\n${prompt.includes('Python') ? 'Here\'s a clean implementation:\n\n```python\ndef detect_fraud(transaction):\n    score = 0\n    if transaction[\'amount\'] > 10000: score += 3\n    if transaction[\'hour\'] < 6: score += 2\n    return score > 4\n```\n\nThis uses heuristic scoring for fast, interpretable results.' : `This is a nuanced question that warrants careful consideration.\n\nThe core insight here is that we need to balance multiple competing factors: accuracy, interpretability, and computational efficiency.\n\nFrom first principles, I'd argue that the most effective approach combines:\n1. A strong foundation in the fundamentals\n2. Iterative refinement based on feedback\n3. Clear metrics for success\n\nThe key is not to overcomplicate — elegant solutions tend to outperform complex ones.`}`,
+      `Let me give you a precise, well-reasoned answer.\n\n${prompt.slice(0,50)}...\n\nMy analysis suggests three key dimensions to consider here. First, the theoretical underpinnings. Second, practical implications. Third, edge cases that most people overlook.\n\nThe most important insight is often hiding in plain sight.`,
+    ],
+    'gpt54': [
+      `Great question! Here's my take:\n\n${prompt.includes('Python') ? '```python\nimport pandas as pd\nfrom sklearn.ensemble import IsolationForest\n\ndef fraud_detector(df):\n    model = IsolationForest(contamination=0.01)\n    df[\'anomaly\'] = model.fit_predict(df)\n    return df[df[\'anomaly\'] == -1]\n```\n\nUsing Isolation Forest gives you unsupervised fraud detection that scales well.' : `I'll break this down clearly:\n\n**The short answer:** It's more complex than it appears.\n\n**The longer answer:** When we examine this from first principles, we find that the conventional wisdom misses a crucial point. The real answer depends heavily on context, constraints, and what outcome you're optimizing for.\n\nI'd recommend starting with the simplest viable solution before adding complexity.`}`,
+    ],
+    'gemini-pro': [
+      `Here's a comprehensive analysis:\n\n${prompt.slice(0,40)}... is a fascinating area where I can offer some structured insights.\n\nConsidering the multidimensional nature of this question, let me address it from multiple angles. The technical perspective suggests one approach, while the practical reality often demands another.\n\nKey considerations:\n• Scalability vs simplicity tradeoff\n• Real-world constraints matter more than theoretical optimality\n• Iterative approaches often beat perfect upfront design`,
+    ],
+    'deepseek-r1': [
+      `<thinking>\nLet me reason step by step through this problem...\n\nFirst, I identify the core challenge. Then I consider constraints. Then I derive the solution.\n</thinking>\n\nAfter careful reasoning:\n\nThe answer emerges from first-principles analysis. ${prompt.includes('fraud') ? 'For fraud detection, the key signals are: velocity of transactions, geographic anomalies, merchant category outliers, and time-of-day patterns. A gradient boosted model trained on these features achieves ~94% precision.' : 'The solution requires balancing competing objectives. My recommendation is to start simple, measure results, and iterate — complexity should be earned, not assumed.'}`,
+    ],
+    'llama-scout': [
+      `Based on my analysis:\n\n${prompt.slice(0,50)}... requires us to think carefully about the underlying structure of the problem.\n\nI'll approach this systematically:\n1. Define the problem precisely\n2. Identify constraints\n3. Generate candidate solutions\n4. Evaluate trade-offs\n\nThe most robust answer here is one that remains valid under a range of assumptions.`,
+    ],
+  };
+
+  const modelResponses = responses[model.id] || responses['claude-opus'];
+  const text = modelResponses[Math.floor(Math.random()*modelResponses.length)];
+
+  // Add simulated delay
+  const delay = 800 + Math.random() * 1200;
+  await new Promise(r => setTimeout(r, delay));
+
+  const elapsed = ((Date.now() - startTime)/1000).toFixed(1);
+  timeEl.textContent = `${elapsed}s (simulated)`;
+
+  await typeText(bodyEl, text, 12);
+}
+
+async function typeText(el, text, speed = 8) {
+  el.textContent = '';
+  const cursor = document.createElement('span');
+  cursor.className = 'typing-cursor';
+  el.appendChild(cursor);
+
+  for (let i = 0; i < text.length; i++) {
+    el.insertBefore(document.createTextNode(text[i]), cursor);
+    if (i % 4 === 0) await new Promise(r => setTimeout(r, speed));
+  }
+  cursor.remove();
+}
+
+/* ══════════════════════════════════════
+   VOTING
+══════════════════════════════════════ */
+function castVote(which) {
+  document.querySelectorAll('.vote-btn').forEach(b => b.disabled = true);
+
+  const key = `${selectedLeft}_${selectedRight}`;
+  if (!battleVotes[key]) battleVotes[key] = { left: 42, right: 31, tie: 8 };
+
+  if (which === 'left') battleVotes[key].left++;
+  else if (which === 'right') battleVotes[key].right++;
+  else battleVotes[key].tie++;
+
+  const v = battleVotes[key];
+  const total = v.left + v.right + v.tie;
+  const pctL = Math.round(v.left/total*100);
+  const pctR = Math.round(v.right/total*100);
+
+  document.getElementById('vBar1').style.width = pctL + '%';
+  document.getElementById('vBar2').style.width = pctR + '%';
+  document.getElementById('vPct1').textContent = pctL + '%';
+  document.getElementById('vPct2').textContent = pctR + '%';
+  document.getElementById('voteResult').classList.add('visible');
+
+  // Highlight winner card
+  if (which === 'left') document.getElementById('cardLeft').classList.add('winner-r');
+  else if (which === 'right') document.getElementById('cardRight').classList.add('winner-b');
+
+  // Update ELO & hero
+  updateELO(which);
+  document.getElementById('totalVotes').textContent = (parseInt(document.getElementById('totalVotes').textContent.replace(',',''))+1).toLocaleString();
+  showToast(which === 'tie' ? '🤝 Tie vote recorded!' : `🏆 Vote cast! ELO updated.`);
+}
+
+function updateELO(winner) {
+  const lm = MODELS.find(x=>x.id===selectedLeft);
+  const rm = MODELS.find(x=>x.id===selectedRight);
+  const K = 32;
+  const expL = 1/(1+Math.pow(10,(rm.elo-lm.elo)/400));
+  const expR = 1 - expL;
+  const sL = winner==='left' ? 1 : winner==='right' ? 0 : 0.5;
+  const sR = 1 - sL;
+  lm.elo = Math.round(lm.elo + K*(sL - expL));
+  rm.elo = Math.round(rm.elo + K*(sR - expR));
+  if (winner === 'left') { lm.w++; rm.l++; }
+  else if (winner === 'right') { rm.w++; lm.l++; }
+  else { lm.t++; rm.t++; }
+  renderLeaderboard();
+}
+
+/* ══════════════════════════════════════
+   LEADERBOARD
+══════════════════════════════════════ */
+function renderLeaderboard() {
+  const sorted = [...MODELS].sort((a,b) => b.elo - a.elo);
+  document.getElementById('leaderboardBody').innerHTML = sorted.map((m, i) => {
+    const total = m.w + m.l + m.t;
+    const wr = total ? Math.round(m.w/total*100) : 0;
+    const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
+    const eloColor = i === 0 ? 'top' : '';
+    return `
+      <tr>
+        <td><span class="rank-badge ${rankClass}">${i+1}</span></td>
+        <td>
+          <div class="model-cell">
+            <div class="model-avatar" style="background:${m.color}22;border:1px solid ${m.color}44">${m.avatar}</div>
+            <div>
+              <div class="model-cell-name">${m.name}</div>
+              <div class="model-cell-co">${m.co}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="elo-num ${eloColor}">${m.elo}</div>
+        </td>
+        <td>
+          <div class="winrate-bar">
+            <div class="wr-track"><div class="wr-fill" style="width:${wr}%;background:${m.color}"></div></div>
+            <span style="font-family:var(--mono);font-size:0.72rem">${wr}%</span>
+          </div>
+        </td>
+        <td><span class="stat-cell"><span class="w">${m.w}W</span> / <span class="l">${m.l}L</span> / ${m.t}T</span></td>
+        <td><span class="elo-change ${i<3?'up':'dn'}">${i<3?'▲':'▼'} ${Math.floor(Math.random()*20)+1}</span></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+/* ══════════════════════════════════════
+   FEED
+══════════════════════════════════════ */
+function renderFeed() {
+  document.getElementById('feedGrid').innerHTML = FEED_DATA.map(f => {
+    const total = f.votes_l + f.votes_r + f.votes_t;
+    const wClass = f.winner==='left'?'fw-r':f.winner==='right'?'fw-b':'fw-tie';
+    const wText = f.winner==='left'?f.left+' WON':f.winner==='right'?f.right+' WON':'TIE';
+    return `
+      <div class="feed-card" onclick="showToast('🔁 Replay coming soon in Pro!')">
+        <div class="feed-top">
+          <div class="feed-combatants">
+            <span class="fc-r">${f.left.split(' ').slice(-2).join(' ')}</span>
+            <span class="fc-vs">VS</span>
+            <span class="fc-b">${f.right.split(' ').slice(-2).join(' ')}</span>
+          </div>
+          <span class="feed-winner-badge ${wClass}">${wText}</span>
+        </div>
+        <div class="feed-prompt">"${f.prompt}"</div>
+        <div class="feed-meta">
+          <div class="feed-stat">🗳 <span>${total}</span> votes</div>
+          <div class="feed-stat">🕐 <span>${f.time}</span></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ══════════════════════════════════════
+   UTILS
+══════════════════════════════════════ */
+function saveApiKey() {
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if (!val.startsWith('sk-ant-') && !val.startsWith('sk-')) {
+    showToast('⚠️ Key should start with sk-ant- (Anthropic)'); return;
+  }
+  apiKey = val;
+  localStorage.setItem('smash_api_key', val);
+  document.getElementById('apiBanner').style.background = 'rgba(0,232,122,0.05)';
+  document.getElementById('apiBanner').style.borderColor = 'rgba(0,232,122,0.2)';
+  showToast('✅ API key saved! Claude battles are now live.');
+}
+
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function scrollTo(sel) { document.querySelector(sel).scrollIntoView({ behavior:'smooth' }); }
+</script>
+</body>
+</html>
